@@ -1,0 +1,118 @@
+{
+  "kind": "build_request",
+  "title": "Initial Concept Delta Platform Setup",
+  "projectName": "Concept Delta",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create routing structure with six pages: Home (/), Dashboard (/dashboard), Admin (/admin), About (/about), Test with dynamic ID parameter (/test/:id), and Result with dynamic ID parameter (/result/:id). All pages should be empty placeholders initially.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create these pages (empty for now): / → Home /dashboard /admin /about /test/:id /result/:id"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All six routes are defined and accessible",
+        "Dynamic routes for /test/:id and /result/:id accept and parse ID parameters",
+        "Each route renders a distinct placeholder component"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a responsive Navbar component with left side containing the Delta logo (from uploaded photo_2026-02-19_19-46-20.jpg processed as a transparent, optimized header image) and 'Concept Delta' text, right side containing navigation links for Home, About, and Login (placeholder), and a mobile hamburger menu that reveals navigation links on smaller screens.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Left side: Delta logo 'Concept Delta' Right side: Home About Login (placeholder for now) Mobile: Hamburger menu"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Navbar displays Delta logo and 'Concept Delta' text on the left",
+        "Home, About, and Login links are visible on the right on desktop",
+        "Hamburger menu appears on mobile screens and toggles navigation visibility",
+        "Navbar uses the uploaded logo image after processing"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Establish the branding color scheme using Primary Navy (#1e3a8a) and Light Blue Accent (#60a5fa) with white background sections throughout the application. Create a reusable gradient button component that transitions from navy to light blue.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Colors: Primary Navy: #1e3a8a Light Blue Accent: #60a5fa White background sections Gradient button component: Navy → Light blue"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color scheme is consistently applied across all pages",
+        "Gradient button component exists and can be reused",
+        "Button gradient flows from navy (#1e3a8a) to light blue (#60a5fa)",
+        "White background sections are implemented"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create a Footer component containing 'Concept Delta © 2026' copyright text, 'COEPian Initiative' text, and placeholder links/icons for YouTube and Telegram social channels.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Include: Concept Delta © 2026 COEPian Initiative text YouTube / Telegram placeholders"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Footer displays copyright text 'Concept Delta © 2026'",
+        "Footer includes 'COEPian Initiative' text",
+        "YouTube and Telegram placeholder links or icons are present",
+        "Footer appears on all pages"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Design and implement a Hero Section for the Home page with a big heading stating 'practice MHT-CET with real exam level mock tests', subtext reading 'Free practice tests designed by COEPians', and a prominent CTA button labeled 'Start Free Test' using the gradient button component. Keep the design minimal and uncluttered.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Big heading: 'practice MHT-CET with real exam level mock tests' Subtext: 'Free practice tests designed by COEPians' Big CTA button: 'Start Free Test' Keep it minimal. No clutter."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hero section displays the exact heading 'practice MHT-CET with real exam level mock tests'",
+        "Subtext 'Free practice tests designed by COEPians' is visible below the heading",
+        "CTA button labeled 'Start Free Test' uses the gradient button component",
+        "Hero section design is minimal with no visual clutter"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use only React with TypeScript, Tailwind CSS, and React Query for the frontend",
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+  ],
+  "nonGoals": [
+    "Backend implementation or data persistence",
+    "Full authentication system (Login is placeholder only)",
+    "Functional test or result pages beyond routing structure",
+    "Real integration with YouTube or Telegram APIs"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": [
+      "Remove background, make transparent, and optimize for header use (photo_2026-02-19_19-46-20.jpg > delta-logo.dim_200x80.png)"
+    ]
+  }
+}
