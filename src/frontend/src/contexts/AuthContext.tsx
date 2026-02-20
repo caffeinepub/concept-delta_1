@@ -1,7 +1,10 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 import { useInternetIdentity, InternetIdentityProvider } from '../hooks/useInternetIdentity';
 
-const ADMIN_PRINCIPAL = "jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe";
+const ADMIN_PRINCIPALS: string[] = [
+  "jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe",
+  "7fcix-3k27q-qz2i2-m15xq-swzz6-6ph64-6cshf-rnmki-3np3b-svw7o-pqe"
+];
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -27,14 +30,14 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     if (identity && isAuthenticated) {
       const principal = identity.getPrincipal();
       
-      if (principal.toText() === ADMIN_PRINCIPAL) {
+      if (ADMIN_PRINCIPALS.includes(principal.toText())) {
         setRole("admin");
       } else {
         setRole("student");
       }
       
       console.log("Principal:", principal.toText());
-      console.log("Role:", principal.toText() === ADMIN_PRINCIPAL ? "admin" : "student");
+      console.log("Role:", ADMIN_PRINCIPALS.includes(principal.toText()) ? "admin" : "student");
     } else {
       setRole("student");
     }

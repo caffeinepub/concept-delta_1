@@ -2,56 +2,187 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-implement-route-protection-in-the-admin-page-component-that-redirects-unauthenticated-users-to-the-home-page-using-react-router-s-usenavigate-hook-and-useeffect",
-      "featureTitle": "Implement route protection in the Admin page component that redirects unauthenticated users to the home page (/) using React Router's useNavigate hook and useEffect",
+      "featureId": "feature-add-a-new-create-test-tab-to-the-admin-panel-navigation-alongside-the-existing-create-question-and-question-gallery-tabs",
+      "featureTitle": "Add a new 'Create Test' tab to the Admin panel navigation alongside the existing 'Create Question' and 'Question Gallery' tabs",
       "files": [
-        "frontend/src/pages/Admin.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/pages/Admin.tsx",
+        "frontend/src/pages/CreateTest.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-18"
+        "REQ-69"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-role-based-access-control-in-the-admin-page-component-that-redirects-users-with-role-admin-to-the-dashboard-page-dashboard-using-react-router-s-usenavigate-hook-and-useeffect",
-      "featureTitle": "Implement role-based access control in the Admin page component that redirects users with role !== 'admin' to the dashboard page (/dashboard) using React Router's useNavigate hook and useEffect",
+      "featureId": "feature-create-a-test-creation-form-in-the-admin-panel-with-the-following-fields-test-name-text-input-class-level-dropdown-with-options-11th-12th-subject-dropdown-with-options-physics-chemistry-maths-duration-number-input-for-minutes-and-marks-per-question-dropdown-with-options-1-2",
+      "featureTitle": "Create a Test Creation form in the Admin panel with the following fields: Test Name (text input), Class Level (dropdown with options: 11th, 12th), Subject (dropdown with options: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown with options: 1, 2)",
       "files": [
-        "frontend/src/pages/Admin.tsx"
+        "frontend/src/pages/CreateTest.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-19"
+        "REQ-70"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-consume-isauthenticated-and-role-values-from-authcontext-using-useauth-hook-in-the-admin-page-component-to-enable-the-protection-logic",
-      "featureTitle": "Consume isAuthenticated and role values from AuthContext using useAuth hook in the Admin page component to enable the protection logic",
+      "featureId": "feature-implement-dynamic-question-fetching-and-filtering-that-triggers-after-class-level-and-subject-are-both-selected-fetching-questions-from-the-backend-where-question-classlevel-matches-the-selected-class-and-question-subject-matches-the-selected-subject",
+      "featureTitle": "Implement dynamic question fetching and filtering that triggers after Class Level and Subject are both selected, fetching questions from the backend where question.classLevel matches the selected class AND question.subject matches the selected subject",
       "files": [
-        "frontend/src/pages/Admin.tsx"
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/CreateTest.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-20"
+        "REQ-71"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-display-filtered-questions-in-a-selectable-list-where-each-question-row-shows-question-id-chapter-name-thumbnail-preview-of-the-question-image-and-a-checkbox-for-selection-allowing-multiple-questions-to-be-selected",
+      "featureTitle": "Display filtered questions in a selectable list where each question row shows Question ID, Chapter name, thumbnail preview of the question image, and a checkbox for selection, allowing multiple questions to be selected",
+      "files": [
+        "frontend/src/components/TestQuestionRow.tsx",
+        "frontend/src/pages/CreateTest.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-72"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-display-a-live-count-showing-selected-questions-x-that-updates-as-questions-are-selected-or-deselected-in-the-create-test-form",
+      "featureTitle": "Display a live count showing 'Selected Questions: X' that updates as questions are selected or deselected in the Create Test form",
+      "files": [
+        "frontend/src/pages/CreateTest.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-73"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-usequeries-hook-for-creating-tests-that-calls-the-backend-createtest-function-with-testname-classlevel-subject-duration-marksperquestion-and-questionids-array",
+      "featureTitle": "Create a useQueries hook for creating tests that calls the backend createTest() function with testName, classLevel, subject, duration, marksPerQuestion, and questionIds array",
+      "files": [
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-76"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-form-submission-logic-for-the-create-test-form-that-validates-all-required-fields-testname-classlevel-subject-duration-marksperquestion-at-least-one-selected-question-calls-the-createtest-mutation-displays-a-success-message-after-successful-creation-and-clears-all-form-fields-including-selected-questions",
+      "featureTitle": "Implement form submission logic for the Create Test form that validates all required fields (testName, classLevel, subject, duration, marksPerQuestion, at least one selected question), calls the createTest mutation, displays a success message after successful creation, and clears all form fields including selected questions",
+      "files": [
+        "frontend/src/pages/CreateTest.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-77"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-publish-toggle-button-to-the-create-test-form-that-changes-a-test-s-status-from-draft-to-published-by-calling-the-backend-updateteststatus-function",
+      "featureTitle": "Add a Publish toggle button to the Create Test form that changes a test's status from 'draft' to 'published' by calling the backend updateTestStatus() function",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/CreateTest.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-79"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-create-test-form-ui-is-clean-minimal-mobile-responsive-and-follows-the-existing-navy-and-light-blue-color-scheme-used-throughout-the-application",
+      "featureTitle": "Ensure the Create Test form UI is clean, minimal, mobile responsive, and follows the existing navy and light blue color scheme used throughout the application",
+      "files": [
+        "frontend/src/pages/CreateTest.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-80"
       ],
       "confidence": "high"
     }

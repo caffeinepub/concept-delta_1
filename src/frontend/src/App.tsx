@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import QuestionGallery from './pages/QuestionGallery';
+import CreateTest from './pages/CreateTest';
 import About from './pages/About';
 import Test from './pages/Test';
 import Result from './pages/Result';
@@ -35,6 +37,18 @@ const adminRoute = createRoute({
   component: Admin,
 });
 
+const questionGalleryRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/gallery',
+  component: QuestionGallery,
+});
+
+const createTestRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/create-test',
+  component: CreateTest,
+});
+
 const aboutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/about',
@@ -57,6 +71,8 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   dashboardRoute,
   adminRoute,
+  questionGalleryRoute,
+  createTestRoute,
   aboutRoute,
   testRoute,
   resultRoute,

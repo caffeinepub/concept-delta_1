@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
+  "projectStateVersion": 27,
   "summary": "Concept Delta - An MHT-CET practice test platform with a navy/light blue color scheme, featuring routes for home, dashboard, admin, about, test, and result pages. Initial focus on layout structure, navbar with logo, footer, and hero section.",
   "architectural_notes": [
     "Navy (#1e3a8a) and light blue (#60a5fa) color scheme with white backgrounds",
@@ -11,8 +11,8 @@
     "AuthContext pattern for global auth state management",
     "Protected routes with redirect logic for unauthenticated users",
     "Role-based access control with 'student' and 'admin' roles via AuthContext",
-    "Admin principal constant set to 'jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe'",
-    "Role assignment uses exact string comparison: principal.toText() === ADMIN_PRINCIPAL"
+    "Admin access uses ADMIN_PRINCIPALS array with includes() check instead of single principal comparison",
+    "Question creation supports optional images for both questions and options (text OR image required)"
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -168,6 +168,414 @@
         "REQ-20"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-admin-principal-constant-in-authcontext-to-7fcix-3k27q-qz2i2-m15xq-swzz6-6ph64-6cshf-rnmki-3np3b-svw7o-pqe",
+      "title": "Update the ADMIN_PRINCIPAL constant in AuthContext to '7fcix-3k27q-qz2i2-m15xq-swzz6-6ph64-6cshf-rnmki-3np3b-svw7o-pqe'",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-single-admin-principal-constant-in-authcontext-with-an-admin-principals-array-containing-two-principal-ids-jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe-and-7fcix-3k27q-qz2i2-m15xq-swzz6-6ph64-6cshf-rnmki-3np3b-svw7o-pqe",
+      "title": "Replace the single ADMIN_PRINCIPAL constant in AuthContext with an ADMIN_PRINCIPALS array containing two principal IDs: 'jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe' and '7fcix-3k27q-qz2i2-m15xq-swzz6-6ph64-6cshf-rnmki-3np3b-svw7o-pqe'",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-role-assignment-logic-in-authcontext-to-use-admin-principals-includes-principal-totext-instead-of-comparing-against-a-single-admin-principal-value",
+      "title": "Update the role assignment logic in AuthContext to use ADMIN_PRINCIPALS.includes(principal.toText()) instead of comparing against a single ADMIN_PRINCIPAL value",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-admin-page-create-question-form-to-include-optional-question-text-textarea-field-and-optional-question-image-file-upload-field-accepting-jpg-png",
+      "title": "Update the Admin page Create Question form to include optional Question Text textarea field and optional Question Image file upload field (accepting jpg, png)",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-optional-text-input-and-optional-image-file-upload-fields-for-each-option-a-b-c-d-in-the-create-question-form-accepting-jpg-and-png-formats",
+      "title": "Add optional text input and optional image file upload fields for each option (A, B, C, D) in the Create Question form, accepting jpg and png formats",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-form-validation-requiring-that-the-question-must-have-at-least-one-of-question-text-or-question-image",
+      "title": "Implement form validation requiring that the question must have at least one of question text OR question image",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-form-validation-requiring-that-each-option-a-b-c-d-must-have-at-least-one-of-option-text-or-option-image",
+      "title": "Implement form validation requiring that each option (A, B, C, D) must have at least one of option text OR option image",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-image-preview-functionality-that-displays-uploaded-images-before-form-submission-for-question-image-and-all-option-images",
+      "title": "Implement image preview functionality that displays uploaded images before form submission for question image and all option images",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-client-side-image-compression-for-large-images-before-form-submission-to-reduce-file-size",
+      "title": "Implement client-side image compression for large images before form submission to reduce file size",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-create-question-form-to-clear-all-fields-text-and-images-after-successful-question-creation",
+      "title": "Update the Create Question form to clear all fields (text and images) after successful question creation",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-a-success-message-to-the-user-after-successfully-creating-a-question-with-images",
+      "title": "Display a success message to the user after successfully creating a question with images",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-maintain-a-clean-and-minimal-ui-design-for-the-create-question-form-with-image-upload-fields-following-the-existing-navy-and-light-blue-color-scheme",
+      "title": "Maintain a clean and minimal UI design for the Create Question form with image upload fields, following the existing navy and light blue color scheme",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-highlighted-section-at-the-top-of-the-admin-create-question-form-with-title-upload-full-question-block-image-recommended-for-mvp-and-description-text-upload-a-single-cropped-image-that-contains-the-question-and-all-4-options",
+      "title": "Add a highlighted section at the top of the Admin Create Question form with title 'Upload Full Question Block Image (Recommended for MVP)' and description text 'Upload a single cropped image that contains the question and all 4 options.'",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-question-image-upload-field-visually-prominent-with-a-larger-upload-box-dashed-border-centered-alignment-and-clear-image-preview-functionality",
+      "title": "Make the Question Image upload field visually prominent with a larger upload box, dashed border, centered alignment, and clear image preview functionality",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-question-text-textarea-field-optional-and-reduce-its-visual-emphasis-to-appear-secondary-compared-to-the-question-image-upload-field",
+      "title": "Make the Question Text textarea field optional and reduce its visual emphasis to appear secondary compared to the Question Image upload field",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-keep-option-a-b-c-d-text-fields-optional-reduce-their-visual-emphasis-and-add-helper-text-leave-empty-if-options-are-included-inside-image-below-each-option-field",
+      "title": "Keep Option A, B, C, D text fields optional, reduce their visual emphasis, and add helper text 'Leave empty if options are included inside image.' below each option field",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-form-validation-to-require-at-least-the-question-image-field-do-not-require-option-text-fields-when-the-question-image-is-uploaded-and-keep-the-correct-answer-dropdown-mandatory",
+      "title": "Update form validation to require at least the Question Image field, do not require option text fields when the Question Image is uploaded, and keep the correct answer dropdown mandatory",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-updated-admin-create-question-form-layout-is-fully-responsive-and-works-correctly-on-mobile-devices",
+      "title": "Ensure the updated Admin Create Question form layout is fully responsive and works correctly on mobile devices",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-preserve-the-existing-hybrid-capability-of-the-form-allowing-users-to-use-text-only-image-only-or-combined-text-and-image-inputs-for-questions-and-options-while-optimizing-the-layout-for-image-first-workflow",
+      "title": "Preserve the existing hybrid capability of the form allowing users to use text-only, image-only, or combined text and image inputs for questions and options while optimizing the layout for image-first workflow",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-classlevel-text-input-field-to-the-frontend-create-question-form-in-admin-tsx-that-is-required-and-clearly-labeled",
+      "title": "Add classLevel text input field to the frontend Create Question form in Admin.tsx that is required and clearly labeled",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-subject-text-input-field-to-the-frontend-create-question-form-in-admin-tsx-that-is-required-and-clearly-labeled",
+      "title": "Add subject text input field to the frontend Create Question form in Admin.tsx that is required and clearly labeled",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-chapter-text-input-field-to-the-frontend-create-question-form-in-admin-tsx-that-is-required-and-clearly-labeled",
+      "title": "Add chapter text input field to the frontend Create Question form in Admin.tsx that is required and clearly labeled",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-marks-number-input-field-to-the-frontend-create-question-form-in-admin-tsx-that-is-required-and-clearly-labeled",
+      "title": "Add marks number input field to the frontend Create Question form in Admin.tsx that is required and clearly labeled",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-form-validation-in-admin-tsx-to-require-classlevel-subject-chapter-questionimage-and-correctanswer-fields-before-form-submission",
+      "title": "Update form validation in Admin.tsx to require classLevel, subject, chapter, questionImage, and correctAnswer fields before form submission",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-usequeries-ts-createquestion-mutation-to-send-all-required-classification-fields-classlevel-subject-chapter-questionimage-correctanswer-marks-to-the-backend-createquestion-function",
+      "title": "Update the useQueries.ts createQuestion mutation to send all required classification fields (classLevel, subject, chapter, questionImage, correctAnswer, marks) to the backend createQuestion function",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-maintain-the-image-only-workflow-where-questiontext-and-option-text-fields-remain-optional-in-the-admin-create-question-form",
+      "title": "Maintain the image-only workflow where questionText and option text fields remain optional in the Admin Create Question form",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-question-gallery-tab-to-the-admin-panel-navigation",
+      "title": "Add a new 'Question Gallery' tab to the Admin panel navigation",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-usequeries-hook-for-fetching-all-questions-using-react-query-that-calls-the-backend-getallquestions-function",
+      "title": "Create a useQueries hook for fetching all questions using React Query that calls the backend getAllQuestions() function",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-total-questions-count-at-the-top-of-the-question-gallery-page",
+      "title": "Display total questions count at the top of the Question Gallery page",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-class-level-filter-dropdown-with-options-all-11th-12th",
+      "title": "Implement a Class Level filter dropdown with options: All, 11th, 12th",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-subject-filter-dropdown-with-options-all-physics-chemistry-maths",
+      "title": "Implement a Subject filter dropdown with options: All, Physics, Chemistry, Maths",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-chapter-text-search-input-with-case-insensitive-filtering",
+      "title": "Implement a Chapter text search input with case-insensitive filtering",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-frontend-based-filtering-logic-that-combines-class-level-subject-and-chapter-filters-simultaneously",
+      "title": "Implement frontend-based filtering logic that combines Class Level, Subject, and Chapter filters simultaneously",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-questions-in-a-responsive-grid-layout-using-card-components",
+      "title": "Display questions in a responsive grid layout using card components",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-each-question-card-to-display-question-id-class-badge-subject-badge-chapter-name-question-image-thumbnail-max-height-150px-with-object-fit-contain-correct-answer-label-marks-and-created-date-in-small-text",
+      "title": "Design each question card to display Question ID, Class badge, Subject badge, Chapter name, Question Image thumbnail (max height 150px with object-fit: contain), Correct Answer label, Marks, and Created date in small text",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-delete-button-to-each-question-card-that-triggers-a-confirmation-modal-before-deletion",
+      "title": "Add a Delete button to each question card that triggers a confirmation modal before deletion",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-call-backend-deletequestion-id-function-when-user-confirms-deletion-in-the-modal",
+      "title": "Call backend deleteQuestion(id) function when user confirms deletion in the modal",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-refresh-the-question-list-after-successful-deletion-by-invalidating-the-getallquestions-query",
+      "title": "Refresh the question list after successful deletion by invalidating the getAllQuestions query",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-a-success-message-after-a-question-is-successfully-deleted",
+      "title": "Display a success message after a question is successfully deleted",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-an-empty-state-message-no-questions-added-yet-when-no-questions-exist-or-match-the-current-filters",
+      "title": "Display an empty state message 'No questions added yet.' when no questions exist or match the current filters",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-question-gallery-layout-is-fully-responsive-and-mobile-friendly",
+      "title": "Ensure the Question Gallery layout is fully responsive and mobile-friendly",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-maintain-clean-and-organized-ui-design-for-the-question-gallery-following-the-existing-navy-and-light-blue-color-scheme",
+      "title": "Maintain clean and organized UI design for the Question Gallery following the existing navy and light blue color scheme",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-create-test-tab-to-the-admin-panel-navigation-alongside-the-existing-create-question-and-question-gallery-tabs",
+      "title": "Add a new 'Create Test' tab to the Admin panel navigation alongside the existing 'Create Question' and 'Question Gallery' tabs",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-test-creation-form-in-the-admin-panel-with-the-following-fields-test-name-text-input-class-level-dropdown-with-options-11th-12th-subject-dropdown-with-options-physics-chemistry-maths-duration-number-input-for-minutes-and-marks-per-question-dropdown-with-options-1-2",
+      "title": "Create a Test Creation form in the Admin panel with the following fields: Test Name (text input), Class Level (dropdown with options: 11th, 12th), Subject (dropdown with options: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown with options: 1, 2)",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-dynamic-question-fetching-and-filtering-that-triggers-after-class-level-and-subject-are-both-selected-fetching-questions-from-the-backend-where-question-classlevel-matches-the-selected-class-and-question-subject-matches-the-selected-subject",
+      "title": "Implement dynamic question fetching and filtering that triggers after Class Level and Subject are both selected, fetching questions from the backend where question.classLevel matches the selected class AND question.subject matches the selected subject",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-filtered-questions-in-a-selectable-list-where-each-question-row-shows-question-id-chapter-name-thumbnail-preview-of-the-question-image-and-a-checkbox-for-selection-allowing-multiple-questions-to-be-selected",
+      "title": "Display filtered questions in a selectable list where each question row shows Question ID, Chapter name, thumbnail preview of the question image, and a checkbox for selection, allowing multiple questions to be selected",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-a-live-count-showing-selected-questions-x-that-updates-as-questions-are-selected-or-deselected-in-the-create-test-form",
+      "title": "Display a live count showing 'Selected Questions: X' that updates as questions are selected or deselected in the Create Test form",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-usequeries-hook-for-creating-tests-that-calls-the-backend-createtest-function-with-testname-classlevel-subject-duration-marksperquestion-and-questionids-array",
+      "title": "Create a useQueries hook for creating tests that calls the backend createTest() function with testName, classLevel, subject, duration, marksPerQuestion, and questionIds array",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-form-submission-logic-for-the-create-test-form-that-validates-all-required-fields-testname-classlevel-subject-duration-marksperquestion-at-least-one-selected-question-calls-the-createtest-mutation-displays-a-success-message-after-successful-creation-and-clears-all-form-fields-including-selected-questions",
+      "title": "Implement form submission logic for the Create Test form that validates all required fields (testName, classLevel, subject, duration, marksPerQuestion, at least one selected question), calls the createTest mutation, displays a success message after successful creation, and clears all form fields including selected questions",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-publish-toggle-button-to-the-create-test-form-that-changes-a-test-s-status-from-draft-to-published-by-calling-the-backend-updateteststatus-function",
+      "title": "Add a Publish toggle button to the Create Test form that changes a test's status from 'draft' to 'published' by calling the backend updateTestStatus() function",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-create-test-form-ui-is-clean-minimal-mobile-responsive-and-follows-the-existing-navy-and-light-blue-color-scheme-used-throughout-the-application",
+      "title": "Ensure the Create Test form UI is clean, minimal, mobile responsive, and follows the existing navy and light blue color scheme used throughout the application",
+      "reqIds": [
+        "REQ-80"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -249,6 +657,228 @@
       "id": "AR-13",
       "summary": "Protect /admin route - redirect unauthenticated users to / and non-admin users to /dashboard",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Update ADMIN_PRINCIPAL constant to '7fcix-3k27q-qz2i2-m15xq-swzz6-6ph64-6cshf-rnmki-3np3b-svw7o-pqe'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Replace single ADMIN_PRINCIPAL constant with ADMIN_PRINCIPALS array containing multiple admin principal IDs and update role assignment logic to use includes() instead of strict equality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Update Admin Question Creation form to support optional image uploads for questions and options (A, B, C, D) with validation requiring at least one of text or image for question and each option",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Implement image handling with preview, compression for large images, and safe storage (base64 or blob)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Update Motoko backend question model to include optional fields: questionImage, optionAImage, optionBImage, optionCImage, optionDImage",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Update the Motoko backend question data model to include optional fields: questionImage, optionAImage, optionBImage, optionCImage, optionDImage stored as base64 or blob reference",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Implement backend storage logic that safely persists question image and option images when creating new questions",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Optimize Admin Create Question form UI for image-first workflow with highlighted section for full question block image, prominent question image upload, optional text fields, and updated validation to require question image only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Update backend Question data model to include id, classLevel, subject, chapter, questionImage (optional), correctAnswer, marks, createdAt fields",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Update createQuestion() backend function to store all classification fields: classLevel, subject, chapter, questionImage, correctAnswer, marks, createdAt",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Update frontend Create Question form to send classLevel, subject, chapter, questionImage, correctAnswer, marks",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Implement form validation requiring classLevel, subject, chapter, questionImage, and correctAnswer fields",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Update backend Question type in main.mo to include all required classification fields: id (auto-generated), classLevel (Text), subject (Text), chapter (Text), questionImage (optional Blob), correctAnswer (Text), marks (Nat), and createdAt (Time)",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Update createQuestion() function in backend main.mo to accept and store all classification fields (classLevel, subject, chapter, questionImage, correctAnswer, marks) and auto-generate id and createdAt timestamp",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Add Question Gallery tab to Admin panel with total questions count, filters for class/subject/chapter, and responsive grid display of question cards",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Ensure getAllQuestions() backend function returns complete question objects with all fields: id, classLevel, subject, chapter, questionImage, correctAnswer, marks, createdAt",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Implement frontend filter system for class dropdown (All, 11th, 12th), subject dropdown (All, Physics, Chemistry, Maths), and chapter text search (case insensitive)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Display each question card showing ID, class badge, subject badge, chapter name, question image thumbnail (max 150px height), correct answer, marks, and created date",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Implement delete question feature with confirmation modal, deleteQuestion(id) backend call, list refresh, and success message",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Show empty state message 'No questions added yet.' when no questions exist",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Verify backend getAllQuestions() function returns complete question objects including id, classLevel, subject, chapter, questionImage, correctAnswer, marks, and createdAt fields",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-51",
+      "summary": "Implement backend deleteQuestion(id) function in main.mo that removes a question by its ID",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-52",
+      "summary": "Add 'Create Test' tab to Admin panel with form for test name, class dropdown, subject dropdown, duration, and marks per question",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-53",
+      "summary": "Fetch and filter questions based on selected class and subject from backend",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-54",
+      "summary": "Display filtered questions in selectable list with question ID, chapter, thumbnail, and checkbox",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-55",
+      "summary": "Show selected question count and allow multiple selection",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-56",
+      "summary": "Implement backend createTest function to save test object with id, testName, classLevel, subject, duration, marksPerQuestion, questionIds, status ('draft'), and createdAt",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-57",
+      "summary": "Show success message and clear form after test creation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-58",
+      "summary": "Add publish toggle button to change test status from 'draft' to 'published'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-59",
+      "summary": "Store tests in stable memory",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-60",
+      "summary": "Ensure Create Test UI is clean, minimal, and mobile responsive following project color scheme",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-66",
+      "summary": "Add a backend Test type to main.mo with fields: id (Text, auto-generated), testName (Text), classLevel (Text), subject (Text), duration (Nat, representing minutes), marksPerQuestion (Nat), questionIds (Array of Text), status (Text with values 'draft' or 'published'), and createdAt (Time)",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-67",
+      "summary": "Implement a createTest() function in backend/main.mo that accepts testName, classLevel, subject, duration, marksPerQuestion, and questionIds array, then creates and stores a new test object in stable memory with auto-generated id, status set to 'draft', and createdAt timestamp",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-70",
+      "summary": "Implement a backend updateTestStatus() function in main.mo that accepts a test ID and new status value ('draft' or 'published'), locates the test in stable memory, and updates its status field",
+      "reqIds": [
+        "REQ-78"
+      ],
       "status": "pending"
     }
   ],

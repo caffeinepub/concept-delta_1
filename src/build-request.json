@@ -1,77 +1,275 @@
 {
   "kind": "build_request",
-  "title": "Add route protection for Admin page",
+  "title": "Implement Chapter-Wise Test Creation System in Admin Panel",
+  "projectName": "Concept Delta",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-18",
-      "text": "Implement route protection in the Admin page component that redirects unauthenticated users to the home page (/) using React Router's useNavigate hook and useEffect",
+      "id": "REQ-69",
+      "text": "Add a new 'Create Test' tab to the Admin panel navigation alongside the existing 'Create Question' and 'Question Gallery' tabs",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-final"
         ],
         "quotes": [
-          "If user is NOT authenticated → redirect to \"/\""
+          "Add new Admin tab: Title: \"Create Test\""
         ]
       },
       "acceptanceCriteria": [
-        "When isAuthenticated is false, the Admin component immediately redirects to /",
-        "Redirection occurs before rendering any Admin page content",
-        "Uses React Router's navigate function from useNavigate()"
+        "New tab appears in Admin panel navigation",
+        "Tab is labeled 'Create Test'",
+        "Tab switches to the Create Test form view when clicked",
+        "Navigation follows the same pattern as existing Admin tabs"
       ]
     },
     {
-      "id": "REQ-19",
-      "text": "Implement role-based access control in the Admin page component that redirects users with role !== 'admin' to the dashboard page (/dashboard) using React Router's useNavigate hook and useEffect",
+      "id": "REQ-70",
+      "text": "Create a Test Creation form in the Admin panel with the following fields: Test Name (text input), Class Level (dropdown with options: 11th, 12th), Subject (dropdown with options: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown with options: 1, 2)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-final"
         ],
         "quotes": [
-          "If role !== \"admin\" → redirect to \"/dashboard\""
+          "Test Name (text input)",
+          "Class Level (dropdown: 11th, 12th)",
+          "Subject (dropdown: Physics, Chemistry, Maths)",
+          "Duration (number input, minutes)",
+          "Marks Per Question (dropdown: 1 or 2)"
         ]
       },
       "acceptanceCriteria": [
-        "When user is authenticated but role is 'student', redirect to /dashboard",
-        "Only users with role === 'admin' can access the Admin page content",
-        "Redirection occurs before rendering any Admin page content",
-        "Uses role value from AuthContext"
+        "All five form fields are present and properly labeled",
+        "Test Name accepts text input",
+        "Class Level dropdown shows only 11th and 12th options",
+        "Subject dropdown shows only Physics, Chemistry, and Maths options",
+        "Duration input accepts only numbers representing minutes",
+        "Marks Per Question dropdown shows only 1 and 2 as options",
+        "Form follows the clean, minimal design with navy and light blue color scheme"
       ]
     },
     {
-      "id": "REQ-20",
-      "text": "Consume isAuthenticated and role values from AuthContext using useAuth hook in the Admin page component to enable the protection logic",
+      "id": "REQ-71",
+      "text": "Implement dynamic question fetching and filtering that triggers after Class Level and Subject are both selected, fetching questions from the backend where question.classLevel matches the selected class AND question.subject matches the selected subject",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-final"
+          "msg-final"
         ],
         "quotes": [
-          "Use role from AuthContext"
+          "After selecting Class and Subject: Fetch questions from backend",
+          "Filter questions where: question.classLevel matches selected class AND question.subject matches selected subject"
         ]
       },
       "acceptanceCriteria": [
-        "Admin component imports and uses useAuth hook from AuthContext",
-        "Both isAuthenticated and role values are destructured from useAuth()",
-        "Protection logic uses these values for redirect decisions"
+        "Questions are fetched only after both Class Level and Subject are selected",
+        "Frontend filters the fetched questions by matching classLevel and subject",
+        "Filtered questions update automatically when Class Level or Subject selection changes",
+        "Loading state is displayed while fetching questions"
+      ]
+    },
+    {
+      "id": "REQ-72",
+      "text": "Display filtered questions in a selectable list where each question row shows Question ID, Chapter name, thumbnail preview of the question image, and a checkbox for selection, allowing multiple questions to be selected",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Display filtered questions in selectable list: Each question row must show: Question ID, Chapter, Thumbnail preview, Checkbox to select",
+          "Allow selecting multiple questions"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each question row displays Question ID, Chapter, thumbnail, and checkbox",
+        "Thumbnail preview shows the question image with appropriate size constraints",
+        "Checkboxes allow selecting and deselecting individual questions",
+        "Multiple questions can be selected simultaneously",
+        "Empty state message appears when no questions match the filters",
+        "List is scrollable if there are many questions"
+      ]
+    },
+    {
+      "id": "REQ-73",
+      "text": "Display a live count showing 'Selected Questions: X' that updates as questions are selected or deselected in the Create Test form",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Show: \"Selected Questions: X\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "Counter displays the exact number of selected questions",
+        "Counter updates immediately when checkboxes are toggled",
+        "Counter is clearly visible near the question selection area"
+      ]
+    },
+    {
+      "id": "REQ-74",
+      "text": "Add a backend Test type to main.mo with fields: id (Text, auto-generated), testName (Text), classLevel (Text), subject (Text), duration (Nat, representing minutes), marksPerQuestion (Nat), questionIds (Array of Text), status (Text with values 'draft' or 'published'), and createdAt (Time)",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Backend should create test object: { id, testName, classLevel, subject, duration, marksPerQuestion, questionIds: [array], status: \"draft\", createdAt }"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Test type includes all specified fields with correct types",
+        "id is auto-generated using a counter similar to question ID generation",
+        "status defaults to 'draft' when creating a new test",
+        "createdAt is automatically set to current timestamp",
+        "Type definition is added to backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-75",
+      "text": "Implement a createTest() function in backend/main.mo that accepts testName, classLevel, subject, duration, marksPerQuestion, and questionIds array, then creates and stores a new test object in stable memory with auto-generated id, status set to 'draft', and createdAt timestamp",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Backend should create test object",
+          "Store tests in stable memory"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Function accepts all required parameters from the frontend",
+        "Function generates a unique test ID",
+        "Function creates test object with status='draft' by default",
+        "Function sets createdAt to current time",
+        "Test is persisted in stable memory using a HashMap or similar structure",
+        "Function returns the created test object or confirmation"
+      ]
+    },
+    {
+      "id": "REQ-76",
+      "text": "Create a useQueries hook for creating tests that calls the backend createTest() function with testName, classLevel, subject, duration, marksPerQuestion, and questionIds array",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "On clicking \"Save Test\": Backend should create test object"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hook is added to frontend/src/hooks/useQueries.ts",
+        "Hook uses React Query's useMutation",
+        "Hook sends all required fields to backend createTest function",
+        "Hook handles loading, success, and error states"
+      ]
+    },
+    {
+      "id": "REQ-77",
+      "text": "Implement form submission logic for the Create Test form that validates all required fields (testName, classLevel, subject, duration, marksPerQuestion, at least one selected question), calls the createTest mutation, displays a success message after successful creation, and clears all form fields including selected questions",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "On clicking \"Save Test\"",
+          "After saving: Show success message, Clear form"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form validates that all fields are filled before submission",
+        "Form validates that at least one question is selected",
+        "Save Test button triggers form submission",
+        "Success message appears after test is created",
+        "All form fields reset to empty/default state after successful creation",
+        "Selected questions list is cleared after successful creation",
+        "Error messages display if validation fails or backend returns an error"
+      ]
+    },
+    {
+      "id": "REQ-78",
+      "text": "Implement a backend updateTestStatus() function in main.mo that accepts a test ID and new status value ('draft' or 'published'), locates the test in stable memory, and updates its status field",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Add \"Publish\" toggle button: Change status to \"published\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "Function accepts test ID and status as parameters",
+        "Function validates that status is either 'draft' or 'published'",
+        "Function updates the test object in stable memory",
+        "Function returns success confirmation or error if test not found"
+      ]
+    },
+    {
+      "id": "REQ-79",
+      "text": "Add a Publish toggle button to the Create Test form that changes a test's status from 'draft' to 'published' by calling the backend updateTestStatus() function",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Add \"Publish\" toggle button: Change status to \"published\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "Publish toggle button is visible in the Create Test interface",
+        "Button calls updateTestStatus backend function when clicked",
+        "Button updates the test status to 'published'",
+        "Success feedback is shown after status change",
+        "Button behavior is intuitive and clearly labeled"
+      ]
+    },
+    {
+      "id": "REQ-80",
+      "text": "Ensure the Create Test form UI is clean, minimal, mobile responsive, and follows the existing navy and light blue color scheme used throughout the application",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "Keep UI clean and mobile responsive"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form layout is clean and uncluttered",
+        "Form is fully functional on mobile devices",
+        "Form uses the navy (#1e3a8a) and light blue (#60a5fa) brand colors",
+        "Form follows the same design patterns as existing Admin forms",
+        "All interactive elements are touch-friendly on mobile"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the Navbar component or its conditional rendering logic",
-    "Do not modify the ProtectedRoute component",
-    "Do not modify any other page components (Home, Dashboard, About, Test, Result)",
-    "Do not modify the App.tsx routing configuration",
-    "Implement protection inside the Admin page component itself, not at the route level"
+    "Do not implement full syllabus logic - only chapter-wise test creation",
+    "Store tests in stable memory in the backend",
+    "Use the existing question data structure and filtering logic",
+    "Maintain the single-actor Motoko backend architecture",
+    "Follow the existing Admin panel tab navigation pattern",
+    "Preserve the navy and light blue color scheme",
+    "Ensure mobile responsiveness for all new UI components"
   ],
   "nonGoals": [
-    "Changing the existing ProtectedRoute component behavior",
-    "Adding new authentication logic to AuthContext",
-    "Modifying role assignment logic",
-    "Hiding the Admin navigation link in the Navbar",
-    "Adding route guards at the App.tsx level"
+    "Full syllabus-based test creation logic",
+    "Test editing or deletion functionality",
+    "Test preview or taking functionality",
+    "Test analytics or reporting",
+    "Automatic test generation based on syllabus coverage",
+    "Test scheduling or time-based release",
+    "Student-facing test browsing interface"
   ],
   "imageRequirements": {
     "required": [],
