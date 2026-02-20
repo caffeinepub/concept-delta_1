@@ -1,16 +1,21 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 13,
   "summary": "Concept Delta - An MHT-CET practice test platform with a navy/light blue color scheme, featuring routes for home, dashboard, admin, about, test, and result pages. Initial focus on layout structure, navbar with logo, footer, and hero section.",
   "architectural_notes": [
     "Navy (#1e3a8a) and light blue (#60a5fa) color scheme with white backgrounds",
     "Gradient button component transitioning from navy to light blue",
     "Mobile-responsive navbar with hamburger menu",
-    "Route structure: home, dashboard, admin, about, test/:id, result/:id"
+    "Route structure: home, dashboard, admin, about, test/:id, result/:id",
+    "Internet Identity authentication using @dfinity/auth-client",
+    "AuthContext pattern for global auth state management",
+    "Protected routes with redirect logic for unauthenticated users",
+    "Role-based access control with 'student' and 'admin' roles via AuthContext",
+    "Admin principal constant set to 'jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe'",
+    "Role assignment uses exact string comparison: principal.toText() === ADMIN_PRINCIPAL"
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Edit Images\n- Remove background, make transparent, and optimize for header use (photo_2026-02-19_19-46-20.jpg > delta-logo.dim_200x80.png)",
   "existing_features": [
     {
       "id": "feature-create-routing-structure-with-six-pages-home-dashboard-dashboard-admin-admin-about-about-test-with-dynamic-id-parameter-test-id-and-result-with-dynamic-id-parameter-result-id-all-pages-should-be-empty-placeholders-initially",
@@ -51,6 +56,118 @@
         "REQ-5"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-create-an-authcontext-that-manages-authentication-state-with-isauthenticated-boolean-principalid-string-login-function-to-trigger-internet-identity-popup-authentication-and-logout-function-to-clear-session",
+      "title": "Create an AuthContext that manages authentication state with isAuthenticated boolean, principalId string, login() function to trigger Internet Identity popup authentication, and logout() function to clear session",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-navbar-component-to-display-login-button-when-user-is-not-authenticated-and-logout-button-when-authenticated-with-shortened-principal-id-displayed-next-to-logout-button",
+      "title": "Modify Navbar component to display Login button when user is not authenticated and Logout button when authenticated, with shortened principal ID displayed next to Logout button",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-authentication-persistence-that-checks-for-existing-authenticated-session-on-page-load-and-automatically-restores-the-session-if-valid",
+      "title": "Implement authentication persistence that checks for existing authenticated session on page load and automatically restores the session if valid",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-protect-the-dashboard-route-by-redirecting-unauthenticated-users-to-the-home-page",
+      "title": "Protect the /dashboard route by redirecting unauthenticated users to the home page (/)",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-authcontext-to-include-a-role-state-property-with-type-student-admin-and-define-a-constant-admin-principal-with-value-replace-with-my-principal",
+      "title": "Extend AuthContext to include a role state property with type 'student' | 'admin', and define a constant ADMIN_PRINCIPAL with value 'REPLACE_WITH_MY_PRINCIPAL'",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-role-assignment-logic-that-sets-role-to-admin-if-principalid-matches-admin-principal-otherwise-sets-role-to-student-executed-after-successful-login",
+      "title": "Implement role assignment logic that sets role to 'admin' if principalId matches ADMIN_PRINCIPAL, otherwise sets role to 'student', executed after successful login",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-navbar-component-to-conditionally-display-an-admin-navigation-link-only-when-the-user-s-role-is-admin-hiding-it-for-student-role-users",
+      "title": "Update Navbar component to conditionally display an 'Admin' navigation link only when the user's role is 'admin', hiding it for 'student' role users",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visible-text-element-to-the-navbar-component-that-displays-the-full-principal-id-when-a-user-is-authenticated-positioned-near-the-logout-button",
+      "title": "Add a visible text element to the Navbar component that displays the full principal ID when a user is authenticated, positioned near the logout button",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-admin-principal-constant-in-authcontext-to-jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe",
+      "title": "Update the ADMIN_PRINCIPAL constant in AuthContext to 'jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe'",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-the-role-assignment-logic-in-authcontext-to-use-principal-totext-for-comparison-if-principal-totext-admin-principal-setrole-admin-else-setrole-student",
+      "title": "Modify the role assignment logic in AuthContext to use principal.toText() for comparison: if (principal.toText() === ADMIN_PRINCIPAL) { setRole('admin'); } else { setRole('student'); }",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-console-logging-in-authcontext-after-role-assignment-that-logs-both-the-principal-id-using-principal-totext-and-the-assigned-role-value",
+      "title": "Add console logging in AuthContext after role assignment that logs both the principal ID using principal.toText() and the assigned role value",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-route-protection-in-the-admin-page-component-that-redirects-unauthenticated-users-to-the-home-page-using-react-router-s-usenavigate-hook-and-useeffect",
+      "title": "Implement route protection in the Admin page component that redirects unauthenticated users to the home page (/) using React Router's useNavigate hook and useEffect",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-role-based-access-control-in-the-admin-page-component-that-redirects-users-with-role-admin-to-the-dashboard-page-dashboard-using-react-router-s-usenavigate-hook-and-useeffect",
+      "title": "Implement role-based access control in the Admin page component that redirects users with role !== 'admin' to the dashboard page (/dashboard) using React Router's useNavigate hook and useEffect",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-consume-isauthenticated-and-role-values-from-authcontext-using-useauth-hook-in-the-admin-page-component-to-enable-the-protection-logic",
+      "title": "Consume isAuthenticated and role values from AuthContext using useAuth hook in the Admin page component to enable the protection logic",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -87,6 +204,50 @@
     {
       "id": "AR-6",
       "summary": "Hero section with MHT-CET heading, subtext, and 'Start Free Test' CTA button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Internet Identity authentication with @dfinity/auth-client",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "AuthContext managing isAuthenticated, principalId, login(), logout()",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Login/Logout button in Navbar with principal ID display (shortened)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Persist authentication across page refresh with automatic session restore",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Protect /dashboard route - redirect to / if not authenticated",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Install and configure @dfinity/auth-client package for Internet Identity integration",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Protect /admin route - redirect unauthenticated users to / and non-admin users to /dashboard",
       "reqIds": [],
       "status": "pending"
     }

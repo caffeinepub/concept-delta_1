@@ -1,4 +1,5 @@
 import { RouterProvider, createRouter, createRoute, createRootRoute } from '@tanstack/react-router';
+import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -6,6 +7,7 @@ import Admin from './pages/Admin';
 import About from './pages/About';
 import Test from './pages/Test';
 import Result from './pages/Result';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const rootRoute = createRootRoute({
   component: Layout,
@@ -20,7 +22,11 @@ const indexRoute = createRoute({
 const dashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/dashboard',
-  component: Dashboard,
+  component: () => (
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  ),
 });
 
 const adminRoute = createRoute({
@@ -65,5 +71,9 @@ declare module '@tanstack/react-router' {
 }
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }

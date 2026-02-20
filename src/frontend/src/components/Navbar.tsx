@@ -1,15 +1,32 @@
 import { useState } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { isAuthenticated, principalId, login, logout, isLoading, role } = useAuth();
 
   const handleNavigation = (path: string) => {
     navigate({ to: path });
     setMobileMenuOpen(false);
+  };
+
+  const handleLogin = () => {
+    login();
+    setMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setMobileMenuOpen(false);
+  };
+
+  const shortenPrincipal = (principal: string) => {
+    if (principal.length <= 12) return principal;
+    return `${principal.slice(0, 6)}...${principal.slice(-4)}`;
   };
 
   return (
@@ -40,14 +57,46 @@ export default function Navbar() {
             >
               About
             </Link>
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
-              onClick={() => handleNavigation('/dashboard')}
-            >
-              Login
-            </Button>
+            {role === "admin" && (
+              <Link
+                to="/admin"
+                className="text-sm font-medium text-foreground transition-colors hover:text-brand-navy"
+              >
+                Admin
+              </Link>
+            )}
+            {isAuthenticated ? (
+              <div className="flex items-center gap-3">
+                <div className="flex flex-col items-end gap-1">
+                  <span className="text-xs text-muted-foreground">
+                    {principalId && shortenPrincipal(principalId)}
+                  </span>
+                  <span className="text-xs font-mono text-brand-navy">
+                    Full: {principalId}
+                  </span>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
+                  onClick={handleLogout}
+                  disabled={isLoading}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
+                onClick={handleLogin}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Loading...' : 'Login'}
+              </Button>
+            )}
           </div>
 
           {/* Mobile hamburger menu button */}
@@ -82,14 +131,48 @@ export default function Navbar() {
               >
                 About
               </Link>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
-                onClick={() => handleNavigation('/dashboard')}
-              >
-                Login
-              </Button>
+              {role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="text-sm font-medium text-foreground transition-colors hover:text-brand-navy"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Admin
+                </Link>
+              )}
+              {isAuthenticated ? (
+                <>
+                  <div className="rounded-md bg-muted px-3 py-2">
+                    <p className="text-xs text-muted-foreground">Principal ID</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {principalId && shortenPrincipal(principalId)}
+                    </p>
+                    <p className="mt-2 text-xs font-mono text-brand-navy break-all">
+                      Full: {principalId}
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
+                    onClick={handleLogout}
+                    disabled={isLoading}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white"
+                  onClick={handleLogin}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Loading...' : 'Login'}
+                </Button>
+              )}
             </div>
           </div>
         )}

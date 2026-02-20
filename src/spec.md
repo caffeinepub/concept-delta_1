@@ -1,14 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Set up the initial Concept Delta platform structure with routing, branding, and basic UI components.
+**Goal:** Add route protection to the Admin page to ensure only authenticated admin users can access it.
 
 **Planned changes:**
-- Create routing structure with six pages: Home (/), Dashboard (/dashboard), Admin (/admin), About (/about), Test (/test/:id), and Result (/result/:id)
-- Implement responsive Navbar with Delta logo, "Concept Delta" text, navigation links (Home, About, Login placeholder), and mobile hamburger menu
-- Establish color scheme using Primary Navy (#1e3a8a), Light Blue Accent (#60a5fa), and white backgrounds
-- Create reusable gradient button component (navy to light blue)
-- Implement Footer with "Concept Delta © 2026", "COEPian Initiative" text, and YouTube/Telegram placeholders
-- Build Hero Section on Home page with heading "practice MHT-CET with real exam level mock tests", subtext "Free practice tests designed by COEPians", and "Start Free Test" CTA button
+- Implement redirect logic in the Admin page component using useNavigate and useEffect
+- Redirect unauthenticated users to the home page (/)
+- Redirect authenticated non-admin users to the dashboard page (/dashboard)
+- Consume isAuthenticated and role from AuthContext using the useAuth hook
 
-**User-visible outcome:** Users can navigate through a branded multi-page platform structure with a clean, minimal design featuring the Concept Delta identity and a compelling home page hero section promoting MHT-CET practice tests.
+**User-visible outcome:** Unauthenticated users attempting to access the Admin page are redirected to the home page, while authenticated students are redirected to the dashboard. Only users with admin role can view the Admin page content.

@@ -1,118 +1,80 @@
 {
   "kind": "build_request",
-  "title": "Initial Concept Delta Platform Setup",
-  "projectName": "Concept Delta",
+  "title": "Add route protection for Admin page",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create routing structure with six pages: Home (/), Dashboard (/dashboard), Admin (/admin), About (/about), Test with dynamic ID parameter (/test/:id), and Result with dynamic ID parameter (/result/:id). All pages should be empty placeholders initially.",
+      "id": "REQ-18",
+      "text": "Implement route protection in the Admin page component that redirects unauthenticated users to the home page (/) using React Router's useNavigate hook and useEffect",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-final"
         ],
         "quotes": [
-          "Create these pages (empty for now): / → Home /dashboard /admin /about /test/:id /result/:id"
+          "If user is NOT authenticated → redirect to \"/\""
         ]
       },
       "acceptanceCriteria": [
-        "All six routes are defined and accessible",
-        "Dynamic routes for /test/:id and /result/:id accept and parse ID parameters",
-        "Each route renders a distinct placeholder component"
+        "When isAuthenticated is false, the Admin component immediately redirects to /",
+        "Redirection occurs before rendering any Admin page content",
+        "Uses React Router's navigate function from useNavigate()"
       ]
     },
     {
-      "id": "REQ-2",
-      "text": "Implement a responsive Navbar component with left side containing the Delta logo (from uploaded photo_2026-02-19_19-46-20.jpg processed as a transparent, optimized header image) and 'Concept Delta' text, right side containing navigation links for Home, About, and Login (placeholder), and a mobile hamburger menu that reveals navigation links on smaller screens.",
+      "id": "REQ-19",
+      "text": "Implement role-based access control in the Admin page component that redirects users with role !== 'admin' to the dashboard page (/dashboard) using React Router's useNavigate hook and useEffect",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-final"
         ],
         "quotes": [
-          "Left side: Delta logo 'Concept Delta' Right side: Home About Login (placeholder for now) Mobile: Hamburger menu"
+          "If role !== \"admin\" → redirect to \"/dashboard\""
         ]
       },
       "acceptanceCriteria": [
-        "Navbar displays Delta logo and 'Concept Delta' text on the left",
-        "Home, About, and Login links are visible on the right on desktop",
-        "Hamburger menu appears on mobile screens and toggles navigation visibility",
-        "Navbar uses the uploaded logo image after processing"
+        "When user is authenticated but role is 'student', redirect to /dashboard",
+        "Only users with role === 'admin' can access the Admin page content",
+        "Redirection occurs before rendering any Admin page content",
+        "Uses role value from AuthContext"
       ]
     },
     {
-      "id": "REQ-3",
-      "text": "Establish the branding color scheme using Primary Navy (#1e3a8a) and Light Blue Accent (#60a5fa) with white background sections throughout the application. Create a reusable gradient button component that transitions from navy to light blue.",
+      "id": "REQ-20",
+      "text": "Consume isAuthenticated and role values from AuthContext using useAuth hook in the Admin page component to enable the protection logic",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-user-final"
         ],
         "quotes": [
-          "Colors: Primary Navy: #1e3a8a Light Blue Accent: #60a5fa White background sections Gradient button component: Navy → Light blue"
+          "Use role from AuthContext"
         ]
       },
       "acceptanceCriteria": [
-        "Color scheme is consistently applied across all pages",
-        "Gradient button component exists and can be reused",
-        "Button gradient flows from navy (#1e3a8a) to light blue (#60a5fa)",
-        "White background sections are implemented"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Create a Footer component containing 'Concept Delta © 2026' copyright text, 'COEPian Initiative' text, and placeholder links/icons for YouTube and Telegram social channels.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Include: Concept Delta © 2026 COEPian Initiative text YouTube / Telegram placeholders"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Footer displays copyright text 'Concept Delta © 2026'",
-        "Footer includes 'COEPian Initiative' text",
-        "YouTube and Telegram placeholder links or icons are present",
-        "Footer appears on all pages"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Design and implement a Hero Section for the Home page with a big heading stating 'practice MHT-CET with real exam level mock tests', subtext reading 'Free practice tests designed by COEPians', and a prominent CTA button labeled 'Start Free Test' using the gradient button component. Keep the design minimal and uncluttered.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Big heading: 'practice MHT-CET with real exam level mock tests' Subtext: 'Free practice tests designed by COEPians' Big CTA button: 'Start Free Test' Keep it minimal. No clutter."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Hero section displays the exact heading 'practice MHT-CET with real exam level mock tests'",
-        "Subtext 'Free practice tests designed by COEPians' is visible below the heading",
-        "CTA button labeled 'Start Free Test' uses the gradient button component",
-        "Hero section design is minimal with no visual clutter"
+        "Admin component imports and uses useAuth hook from AuthContext",
+        "Both isAuthenticated and role values are destructured from useAuth()",
+        "Protection logic uses these values for redirect decisions"
       ]
     }
   ],
   "constraints": [
-    "Use only React with TypeScript, Tailwind CSS, and React Query for the frontend",
-    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+    "Do not modify the Navbar component or its conditional rendering logic",
+    "Do not modify the ProtectedRoute component",
+    "Do not modify any other page components (Home, Dashboard, About, Test, Result)",
+    "Do not modify the App.tsx routing configuration",
+    "Implement protection inside the Admin page component itself, not at the route level"
   ],
   "nonGoals": [
-    "Backend implementation or data persistence",
-    "Full authentication system (Login is placeholder only)",
-    "Functional test or result pages beyond routing structure",
-    "Real integration with YouTube or Telegram APIs"
+    "Changing the existing ProtectedRoute component behavior",
+    "Adding new authentication logic to AuthContext",
+    "Modifying role assignment logic",
+    "Hiding the Admin navigation link in the Navbar",
+    "Adding route guards at the App.tsx level"
   ],
   "imageRequirements": {
     "required": [],
-    "edits": [
-      "Remove background, make transparent, and optimize for header use (photo_2026-02-19_19-46-20.jpg > delta-logo.dim_200x80.png)"
-    ]
+    "edits": []
   }
 }

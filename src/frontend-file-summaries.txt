@@ -1,17 +1,19 @@
 {
-  "frontend/src/App.tsx": "Main application component that configures TanStack Router with six routes (home, dashboard, admin, about, test with dynamic ID, result with dynamic ID) and wraps them in a Layout component.",
+  "frontend/src/App.tsx": "Main application component that wraps the router with AuthProvider and protects the dashboard route using ProtectedRoute component while maintaining all six existing routes.",
   "frontend/src/components/Layout.tsx": "Layout wrapper component that provides consistent structure with Navbar at top, main content area with Outlet for route rendering, and Footer at bottom.",
-  "frontend/src/components/Navbar.tsx": "Responsive navigation bar with Delta logo and brand name on left, Home/About/Login links on right for desktop, and collapsible hamburger menu for mobile using navy/light blue color scheme.",
+  "frontend/src/components/Navbar.tsx": "Responsive navigation bar with conditional authentication UI, role-based Admin link, and displays both shortened and full principal ID when authenticated in desktop and mobile layouts.",
   "frontend/src/components/Footer.tsx": "Footer component displaying copyright text, COEPian Initiative branding, social media placeholders for YouTube and Telegram, and caffeine.ai attribution with UTM tracking.",
   "frontend/src/components/GradientButton.tsx": "Reusable button component with navy-to-light-blue gradient background, hover effects, and three size variants (sm, default, lg).",
   "frontend/src/components/HeroSection.tsx": "Hero section for homepage featuring large heading about MHT-CET practice tests, subtext about COEPian design, and prominent gradient CTA button.",
   "frontend/src/pages/Home.tsx": "Home page component that renders the HeroSection as main content.",
   "frontend/src/pages/Dashboard.tsx": "Dashboard page placeholder with heading and coming soon message.",
-  "frontend/src/pages/Admin.tsx": "Admin page placeholder with heading and coming soon message.",
+  "frontend/src/pages/Admin.tsx": "Admin page component with route protection that redirects unauthenticated users to home and non-admin users to dashboard using useAuth hook and React Router navigation.",
   "frontend/src/pages/About.tsx": "About page placeholder with heading and coming soon message.",
   "frontend/src/pages/Test.tsx": "Test page that displays dynamic ID parameter from route and placeholder content.",
   "frontend/src/pages/Result.tsx": "Result page that displays dynamic ID parameter from route and placeholder content.",
   "frontend/src/hooks/useQueries.ts": "Empty placeholder file for future React Query hooks to interact with backend.",
   "frontend/src/index.css": "Global styles with OKLCH color system including custom brand colors for navy (#1e3a8a as oklch(0.28 0.15 255)) and light blue (#60a5fa as oklch(0.72 0.12 240)) in both light and dark modes.",
-  "frontend/tailwind.config.js": "Tailwind configuration extended with brand color tokens (brand-navy and brand-blue) mapped to CSS variables for consistent usage across components."
+  "frontend/tailwind.config.js": "Tailwind configuration extended with brand color tokens (brand-navy and brand-blue) mapped to CSS variables for consistent usage across components.",
+  "frontend/src/contexts/AuthContext.tsx": "AuthContext that wraps useInternetIdentity to provide authentication state (isAuthenticated, principalId, role) and methods (login, logout), with role assignment logic using principal.toText() to compare against ADMIN_PRINCIPAL constant (\"jqvc4-5tjdu-a3br6-pm2i3-cgbcq-umfiv-r2kcw-z4hju-ox52z-apmjw-eqe\"), setting role to \"admin\" if matched or \"student\" otherwise, with console logging of principal and role after successful login.",
+  "frontend/src/components/ProtectedRoute.tsx": "Route guard component that checks authentication status and redirects unauthenticated users to home page, showing a loading spinner during authentication checks."
 }
