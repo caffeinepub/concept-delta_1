@@ -1,145 +1,97 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T22:44:43.778Z",
+  "generatedAt": "2026-02-21T02:48:29.091Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 12,
-    "implemented": 9,
+    "total": 8,
+    "implemented": 7,
     "items": [
       {
-        "id": "REQ-69",
-        "summary": "Add a new 'Create Test' tab to the Admin panel navigation alongside the existing 'Create Question' and 'Question Gallery' tabs",
+        "id": "REQ-81",
+        "summary": "Update Admin.tsx Create Question form to make classLevel dropdown field required with options '11th' and '12th', displaying a validation error message if not selected before form submission",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/pages/Admin.tsx",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/pages/Admin.tsx",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ]
       },
       {
-        "id": "REQ-70",
-        "summary": "Create a Test Creation form in the Admin panel with the following fields: Test Name (text input), Class Level (dropdown with options: 11th, 12th), Subject (dropdown with options: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown with options: 1, 2)",
+        "id": "REQ-82",
+        "summary": "Update Admin.tsx Create Question form to make subject dropdown field required with options 'Physics', 'Chemistry', and 'Maths', displaying a validation error message if not selected before form submission",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ]
       },
       {
-        "id": "REQ-71",
-        "summary": "Implement dynamic question fetching and filtering that triggers after Class Level and Subject are both selected, fetching questions from the backend where question.classLevel matches the selected class AND question.subject matches the selected subject",
+        "id": "REQ-83",
+        "summary": "Update Admin.tsx Create Question form to make chapter/topic name text input field required, displaying a validation error message if empty before form submission",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ]
       },
       {
-        "id": "REQ-72",
-        "summary": "Display filtered questions in a selectable list where each question row shows Question ID, Chapter name, thumbnail preview of the question image, and a checkbox for selection, allowing multiple questions to be selected",
+        "id": "REQ-84",
+        "summary": "Implement comprehensive form validation in Admin.tsx that prevents form submission unless all three fields (classLevel, subject, chapter) are filled, and ensure these three fields are always sent to the backend createQuestion function",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/TestQuestionRow.tsx",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/TestQuestionRow.tsx",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ]
       },
       {
-        "id": "REQ-73",
-        "summary": "Display a live count showing 'Selected Questions: X' that updates as questions are selected or deselected in the Create Test form",
+        "id": "REQ-85",
+        "summary": "Preserve the existing image-only workflow in Admin.tsx Create Question form where questionText and option text fields remain optional and images can be used without text",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/Admin.tsx"
         ]
       },
       {
-        "id": "REQ-74",
-        "summary": "Add a backend Test type to main.mo with fields: id (Text, auto-generated), testName (Text), classLevel (Text), subject (Text), duration (Nat, representing minutes), marksPerQuestion (Nat), questionIds (Array of Text), status (Text with values 'draft' or 'published'), and createdAt (Time)",
+        "id": "REQ-86",
+        "summary": "Fix the backend deleteQuestion function in main.mo to correctly remove questions from stable memory by ensuring ID type matching and conversion, properly deleting the question from the storage data structure",
         "status": "unknown",
         "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-75",
-        "summary": "Implement a createTest() function in backend/main.mo that accepts testName, classLevel, subject, duration, marksPerQuestion, and questionIds array, then creates and stores a new test object in stable memory with auto-generated id, status set to 'draft', and createdAt timestamp",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-76",
-        "summary": "Create a useQueries hook for creating tests that calls the backend createTest() function with testName, classLevel, subject, duration, marksPerQuestion, and questionIds array",
+        "id": "REQ-87",
+        "summary": "Update QuestionGallery.tsx to refresh the question list, update the total question count, and display a success message after successful question deletion",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts"
+          "frontend/src/pages/QuestionGallery.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts"
+          "frontend/src/pages/QuestionGallery.tsx"
         ]
       },
       {
-        "id": "REQ-77",
-        "summary": "Implement form submission logic for the Create Test form that validates all required fields (testName, classLevel, subject, duration, marksPerQuestion, at least one selected question), calls the createTest mutation, displays a success message after successful creation, and clears all form fields including selected questions",
+        "id": "REQ-88",
+        "summary": "Add error handling to QuestionGallery.tsx delete functionality that displays an error message when deletion fails",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/CreateTest.tsx",
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/QuestionGallery.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/CreateTest.tsx",
-          "frontend/src/pages/CreateTest.tsx"
-        ]
-      },
-      {
-        "id": "REQ-78",
-        "summary": "Implement a backend updateTestStatus() function in main.mo that accepts a test ID and new status value ('draft' or 'published'), locates the test in stable memory, and updates its status field",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-79",
-        "summary": "Add a Publish toggle button to the Create Test form that changes a test's status from 'draft' to 'published' by calling the backend updateTestStatus() function",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/CreateTest.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/pages/CreateTest.tsx"
-        ]
-      },
-      {
-        "id": "REQ-80",
-        "summary": "Ensure the Create Test form UI is clean, minimal, mobile responsive, and follows the existing navy and light blue color scheme used throughout the application",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/CreateTest.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/CreateTest.tsx"
+          "frontend/src/pages/QuestionGallery.tsx"
         ]
       }
     ]
@@ -150,15 +102,8 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/components/TestQuestionRow.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useQueries.ts",
     "frontend/src/pages/Admin.tsx",
-    "frontend/src/pages/CreateTest.tsx",
+    "frontend/src/pages/QuestionGallery.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

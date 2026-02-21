@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-new-create-test-tab-to-the-admin-panel-navigation-alongside-the-existing-create-question-and-question-gallery-tabs",
-      "featureTitle": "Add a new 'Create Test' tab to the Admin panel navigation alongside the existing 'Create Question' and 'Question Gallery' tabs",
+      "featureId": "feature-update-admin-tsx-create-question-form-to-make-classlevel-dropdown-field-required-with-options-11th-and-12th-displaying-a-validation-error-message-if-not-selected-before-form-submission",
+      "featureTitle": "Update Admin.tsx Create Question form to make classLevel dropdown field required with options '11th' and '12th', displaying a validation error message if not selected before form submission",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/Admin.tsx",
-        "frontend/src/pages/CreateTest.tsx"
+        "frontend/src/pages/Admin.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -19,15 +17,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-69"
+        "REQ-81"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-test-creation-form-in-the-admin-panel-with-the-following-fields-test-name-text-input-class-level-dropdown-with-options-11th-12th-subject-dropdown-with-options-physics-chemistry-maths-duration-number-input-for-minutes-and-marks-per-question-dropdown-with-options-1-2",
-      "featureTitle": "Create a Test Creation form in the Admin panel with the following fields: Test Name (text input), Class Level (dropdown with options: 11th, 12th), Subject (dropdown with options: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown with options: 1, 2)",
+      "featureId": "feature-update-admin-tsx-create-question-form-to-make-subject-dropdown-field-required-with-options-physics-chemistry-and-maths-displaying-a-validation-error-message-if-not-selected-before-form-submission",
+      "featureTitle": "Update Admin.tsx Create Question form to make subject dropdown field required with options 'Physics', 'Chemistry', and 'Maths', displaying a validation error message if not selected before form submission",
       "files": [
-        "frontend/src/pages/CreateTest.tsx"
+        "frontend/src/pages/Admin.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -39,16 +37,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-70"
+        "REQ-82"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-dynamic-question-fetching-and-filtering-that-triggers-after-class-level-and-subject-are-both-selected-fetching-questions-from-the-backend-where-question-classlevel-matches-the-selected-class-and-question-subject-matches-the-selected-subject",
-      "featureTitle": "Implement dynamic question fetching and filtering that triggers after Class Level and Subject are both selected, fetching questions from the backend where question.classLevel matches the selected class AND question.subject matches the selected subject",
+      "featureId": "feature-update-admin-tsx-create-question-form-to-make-chapter-topic-name-text-input-field-required-displaying-a-validation-error-message-if-empty-before-form-submission",
+      "featureTitle": "Update Admin.tsx Create Question form to make chapter/topic name text input field required, displaying a validation error message if empty before form submission",
       "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/CreateTest.tsx"
+        "frontend/src/pages/Admin.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -60,16 +57,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-71"
+        "REQ-83"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-display-filtered-questions-in-a-selectable-list-where-each-question-row-shows-question-id-chapter-name-thumbnail-preview-of-the-question-image-and-a-checkbox-for-selection-allowing-multiple-questions-to-be-selected",
-      "featureTitle": "Display filtered questions in a selectable list where each question row shows Question ID, Chapter name, thumbnail preview of the question image, and a checkbox for selection, allowing multiple questions to be selected",
+      "featureId": "feature-implement-comprehensive-form-validation-in-admin-tsx-that-prevents-form-submission-unless-all-three-fields-classlevel-subject-chapter-are-filled-and-ensure-these-three-fields-are-always-sent-to-the-backend-createquestion-function",
+      "featureTitle": "Implement comprehensive form validation in Admin.tsx that prevents form submission unless all three fields (classLevel, subject, chapter) are filled, and ensure these three fields are always sent to the backend createQuestion function",
       "files": [
-        "frontend/src/components/TestQuestionRow.tsx",
-        "frontend/src/pages/CreateTest.tsx"
+        "frontend/src/pages/Admin.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -81,15 +77,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-72"
+        "REQ-84"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-display-a-live-count-showing-selected-questions-x-that-updates-as-questions-are-selected-or-deselected-in-the-create-test-form",
-      "featureTitle": "Display a live count showing 'Selected Questions: X' that updates as questions are selected or deselected in the Create Test form",
+      "featureId": "feature-preserve-the-existing-image-only-workflow-in-admin-tsx-create-question-form-where-questiontext-and-option-text-fields-remain-optional-and-images-can-be-used-without-text",
+      "featureTitle": "Preserve the existing image-only workflow in Admin.tsx Create Question form where questionText and option text fields remain optional and images can be used without text",
       "files": [
-        "frontend/src/pages/CreateTest.tsx"
+        "frontend/src/pages/Admin.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -101,15 +97,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-73"
+        "REQ-85"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-usequeries-hook-for-creating-tests-that-calls-the-backend-createtest-function-with-testname-classlevel-subject-duration-marksperquestion-and-questionids-array",
-      "featureTitle": "Create a useQueries hook for creating tests that calls the backend createTest() function with testName, classLevel, subject, duration, marksPerQuestion, and questionIds array",
+      "featureId": "feature-update-questiongallery-tsx-to-refresh-the-question-list-update-the-total-question-count-and-display-a-success-message-after-successful-question-deletion",
+      "featureTitle": "Update QuestionGallery.tsx to refresh the question list, update the total question count, and display a success message after successful question deletion",
       "files": [
-        "frontend/src/hooks/useQueries.ts"
+        "frontend/src/pages/QuestionGallery.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -121,15 +117,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-76"
+        "REQ-87"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-form-submission-logic-for-the-create-test-form-that-validates-all-required-fields-testname-classlevel-subject-duration-marksperquestion-at-least-one-selected-question-calls-the-createtest-mutation-displays-a-success-message-after-successful-creation-and-clears-all-form-fields-including-selected-questions",
-      "featureTitle": "Implement form submission logic for the Create Test form that validates all required fields (testName, classLevel, subject, duration, marksPerQuestion, at least one selected question), calls the createTest mutation, displays a success message after successful creation, and clears all form fields including selected questions",
+      "featureId": "feature-add-error-handling-to-questiongallery-tsx-delete-functionality-that-displays-an-error-message-when-deletion-fails",
+      "featureTitle": "Add error handling to QuestionGallery.tsx delete functionality that displays an error message when deletion fails",
       "files": [
-        "frontend/src/pages/CreateTest.tsx"
+        "frontend/src/pages/QuestionGallery.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -141,48 +137,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-77"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-publish-toggle-button-to-the-create-test-form-that-changes-a-test-s-status-from-draft-to-published-by-calling-the-backend-updateteststatus-function",
-      "featureTitle": "Add a Publish toggle button to the Create Test form that changes a test's status from 'draft' to 'published' by calling the backend updateTestStatus() function",
-      "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/CreateTest.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "blob-storage@4.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-79"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-the-create-test-form-ui-is-clean-minimal-mobile-responsive-and-follows-the-existing-navy-and-light-blue-color-scheme-used-throughout-the-application",
-      "featureTitle": "Ensure the Create Test form UI is clean, minimal, mobile responsive, and follows the existing navy and light blue color scheme used throughout the application",
-      "files": [
-        "frontend/src/pages/CreateTest.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "blob-storage@4.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-80"
+        "REQ-88"
       ],
       "confidence": "high"
     }

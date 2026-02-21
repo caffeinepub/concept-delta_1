@@ -1,275 +1,177 @@
 {
   "kind": "build_request",
-  "title": "Implement Chapter-Wise Test Creation System in Admin Panel",
-  "projectName": "Concept Delta",
-  "priority": "normal",
+  "title": "Fix Question Creation Form Validation and Delete Functionality",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-69",
-      "text": "Add a new 'Create Test' tab to the Admin panel navigation alongside the existing 'Create Question' and 'Question Gallery' tabs",
+      "id": "REQ-81",
+      "text": "Update Admin.tsx Create Question form to make classLevel dropdown field required with options '11th' and '12th', displaying a validation error message if not selected before form submission",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "Add new Admin tab: Title: \"Create Test\""
+          "Class Level (dropdown) Options: 11th, 12th",
+          "If Class not selected → show error"
         ]
       },
       "acceptanceCriteria": [
-        "New tab appears in Admin panel navigation",
-        "Tab is labeled 'Create Test'",
-        "Tab switches to the Create Test form view when clicked",
-        "Navigation follows the same pattern as existing Admin tabs"
+        "Class Level dropdown has exactly two options: '11th' and '12th'",
+        "Error message displays if user attempts to submit without selecting a class level",
+        "Form submission is blocked until class level is selected"
       ]
     },
     {
-      "id": "REQ-70",
-      "text": "Create a Test Creation form in the Admin panel with the following fields: Test Name (text input), Class Level (dropdown with options: 11th, 12th), Subject (dropdown with options: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown with options: 1, 2)",
+      "id": "REQ-82",
+      "text": "Update Admin.tsx Create Question form to make subject dropdown field required with options 'Physics', 'Chemistry', and 'Maths', displaying a validation error message if not selected before form submission",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "Test Name (text input)",
-          "Class Level (dropdown: 11th, 12th)",
-          "Subject (dropdown: Physics, Chemistry, Maths)",
-          "Duration (number input, minutes)",
-          "Marks Per Question (dropdown: 1 or 2)"
+          "Subject (dropdown) Options: Physics, Chemistry, Maths",
+          "If Subject not selected → show error"
         ]
       },
       "acceptanceCriteria": [
-        "All five form fields are present and properly labeled",
-        "Test Name accepts text input",
-        "Class Level dropdown shows only 11th and 12th options",
-        "Subject dropdown shows only Physics, Chemistry, and Maths options",
-        "Duration input accepts only numbers representing minutes",
-        "Marks Per Question dropdown shows only 1 and 2 as options",
-        "Form follows the clean, minimal design with navy and light blue color scheme"
+        "Subject dropdown has exactly three options: 'Physics', 'Chemistry', and 'Maths'",
+        "Error message displays if user attempts to submit without selecting a subject",
+        "Form submission is blocked until subject is selected"
       ]
     },
     {
-      "id": "REQ-71",
-      "text": "Implement dynamic question fetching and filtering that triggers after Class Level and Subject are both selected, fetching questions from the backend where question.classLevel matches the selected class AND question.subject matches the selected subject",
+      "id": "REQ-83",
+      "text": "Update Admin.tsx Create Question form to make chapter/topic name text input field required, displaying a validation error message if empty before form submission",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "After selecting Class and Subject: Fetch questions from backend",
-          "Filter questions where: question.classLevel matches selected class AND question.subject matches selected subject"
+          "Chapter / Topic Name (text input) Admin must type manually",
+          "If Chapter/Topic empty → show error"
         ]
       },
       "acceptanceCriteria": [
-        "Questions are fetched only after both Class Level and Subject are selected",
-        "Frontend filters the fetched questions by matching classLevel and subject",
-        "Filtered questions update automatically when Class Level or Subject selection changes",
-        "Loading state is displayed while fetching questions"
+        "Chapter/Topic text input field is marked as required",
+        "Error message displays if user attempts to submit with empty chapter field",
+        "Form submission is blocked until chapter field contains text",
+        "Admin must manually type the chapter name (no dropdown)"
       ]
     },
     {
-      "id": "REQ-72",
-      "text": "Display filtered questions in a selectable list where each question row shows Question ID, Chapter name, thumbnail preview of the question image, and a checkbox for selection, allowing multiple questions to be selected",
+      "id": "REQ-84",
+      "text": "Implement comprehensive form validation in Admin.tsx that prevents form submission unless all three fields (classLevel, subject, chapter) are filled, and ensure these three fields are always sent to the backend createQuestion function",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "Display filtered questions in selectable list: Each question row must show: Question ID, Chapter, Thumbnail preview, Checkbox to select",
-          "Allow selecting multiple questions"
+          "Do not allow save without these three",
+          "Ensure classLevel, subject, chapter are always sent to backend"
         ]
       },
       "acceptanceCriteria": [
-        "Each question row displays Question ID, Chapter, thumbnail, and checkbox",
-        "Thumbnail preview shows the question image with appropriate size constraints",
-        "Checkboxes allow selecting and deselecting individual questions",
-        "Multiple questions can be selected simultaneously",
-        "Empty state message appears when no questions match the filters",
-        "List is scrollable if there are many questions"
+        "Form validation checks all three fields before allowing submission",
+        "Backend createQuestion call always includes classLevel, subject, and chapter fields",
+        "Validation runs on form submit and displays all relevant errors simultaneously",
+        "Submit button remains disabled or shows validation errors until all required fields are filled"
       ]
     },
     {
-      "id": "REQ-73",
-      "text": "Display a live count showing 'Selected Questions: X' that updates as questions are selected or deselected in the Create Test form",
+      "id": "REQ-85",
+      "text": "Preserve the existing image-only workflow in Admin.tsx Create Question form where questionText and option text fields remain optional and images can be used without text",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "Show: \"Selected Questions: X\""
+          "Do not remove image-only workflow"
         ]
       },
       "acceptanceCriteria": [
-        "Counter displays the exact number of selected questions",
-        "Counter updates immediately when checkboxes are toggled",
-        "Counter is clearly visible near the question selection area"
+        "Question text field remains optional",
+        "Option A, B, C, D text fields remain optional",
+        "Questions can be created with only images (no text required for question or options)",
+        "Existing image upload and preview functionality is preserved"
       ]
     },
     {
-      "id": "REQ-74",
-      "text": "Add a backend Test type to main.mo with fields: id (Text, auto-generated), testName (Text), classLevel (Text), subject (Text), duration (Nat, representing minutes), marksPerQuestion (Nat), questionIds (Array of Text), status (Text with values 'draft' or 'published'), and createdAt (Time)",
+      "id": "REQ-86",
+      "text": "Fix the backend deleteQuestion function in main.mo to correctly remove questions from stable memory by ensuring ID type matching and conversion, properly deleting the question from the storage data structure",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "Backend should create test object: { id, testName, classLevel, subject, duration, marksPerQuestion, questionIds: [array], status: \"draft\", createdAt }"
+          "Ensure deleteQuestion(id) correctly removes question from stable memory",
+          "Make sure ID types match (convert to same type if needed)"
         ]
       },
       "acceptanceCriteria": [
-        "Test type includes all specified fields with correct types",
-        "id is auto-generated using a counter similar to question ID generation",
-        "status defaults to 'draft' when creating a new test",
-        "createdAt is automatically set to current timestamp",
-        "Type definition is added to backend/main.mo"
+        "deleteQuestion function accepts question ID parameter",
+        "ID types are matched or converted correctly (Text vs Nat comparisons)",
+        "Question is successfully removed from stable memory storage",
+        "Function returns success/failure status to frontend"
       ]
     },
     {
-      "id": "REQ-75",
-      "text": "Implement a createTest() function in backend/main.mo that accepts testName, classLevel, subject, duration, marksPerQuestion, and questionIds array, then creates and stores a new test object in stable memory with auto-generated id, status set to 'draft', and createdAt timestamp",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-final"
-        ],
-        "quotes": [
-          "Backend should create test object",
-          "Store tests in stable memory"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Function accepts all required parameters from the frontend",
-        "Function generates a unique test ID",
-        "Function creates test object with status='draft' by default",
-        "Function sets createdAt to current time",
-        "Test is persisted in stable memory using a HashMap or similar structure",
-        "Function returns the created test object or confirmation"
-      ]
-    },
-    {
-      "id": "REQ-76",
-      "text": "Create a useQueries hook for creating tests that calls the backend createTest() function with testName, classLevel, subject, duration, marksPerQuestion, and questionIds array",
+      "id": "REQ-87",
+      "text": "Update QuestionGallery.tsx to refresh the question list, update the total question count, and display a success message after successful question deletion",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "On clicking \"Save Test\": Backend should create test object"
+          "After deletion: Refresh list, Update total question count, Show success message"
         ]
       },
       "acceptanceCriteria": [
-        "Hook is added to frontend/src/hooks/useQueries.ts",
-        "Hook uses React Query's useMutation",
-        "Hook sends all required fields to backend createTest function",
-        "Hook handles loading, success, and error states"
+        "Question list automatically refreshes after deletion by invalidating the getAllQuestions query",
+        "Total questions count updates to reflect the new total",
+        "Success message appears confirming the question was deleted",
+        "UI updates without requiring manual page refresh"
       ]
     },
     {
-      "id": "REQ-77",
-      "text": "Implement form submission logic for the Create Test form that validates all required fields (testName, classLevel, subject, duration, marksPerQuestion, at least one selected question), calls the createTest mutation, displays a success message after successful creation, and clears all form fields including selected questions",
+      "id": "REQ-88",
+      "text": "Add error handling to QuestionGallery.tsx delete functionality that displays an error message when deletion fails",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-final"
+          "msg-5"
         ],
         "quotes": [
-          "On clicking \"Save Test\"",
-          "After saving: Show success message, Clear form"
+          "If deletion fails: Show error message"
         ]
       },
       "acceptanceCriteria": [
-        "Form validates that all fields are filled before submission",
-        "Form validates that at least one question is selected",
-        "Save Test button triggers form submission",
-        "Success message appears after test is created",
-        "All form fields reset to empty/default state after successful creation",
-        "Selected questions list is cleared after successful creation",
-        "Error messages display if validation fails or backend returns an error"
-      ]
-    },
-    {
-      "id": "REQ-78",
-      "text": "Implement a backend updateTestStatus() function in main.mo that accepts a test ID and new status value ('draft' or 'published'), locates the test in stable memory, and updates its status field",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-final"
-        ],
-        "quotes": [
-          "Add \"Publish\" toggle button: Change status to \"published\""
-        ]
-      },
-      "acceptanceCriteria": [
-        "Function accepts test ID and status as parameters",
-        "Function validates that status is either 'draft' or 'published'",
-        "Function updates the test object in stable memory",
-        "Function returns success confirmation or error if test not found"
-      ]
-    },
-    {
-      "id": "REQ-79",
-      "text": "Add a Publish toggle button to the Create Test form that changes a test's status from 'draft' to 'published' by calling the backend updateTestStatus() function",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-final"
-        ],
-        "quotes": [
-          "Add \"Publish\" toggle button: Change status to \"published\""
-        ]
-      },
-      "acceptanceCriteria": [
-        "Publish toggle button is visible in the Create Test interface",
-        "Button calls updateTestStatus backend function when clicked",
-        "Button updates the test status to 'published'",
-        "Success feedback is shown after status change",
-        "Button behavior is intuitive and clearly labeled"
-      ]
-    },
-    {
-      "id": "REQ-80",
-      "text": "Ensure the Create Test form UI is clean, minimal, mobile responsive, and follows the existing navy and light blue color scheme used throughout the application",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-final"
-        ],
-        "quotes": [
-          "Keep UI clean and mobile responsive"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Form layout is clean and uncluttered",
-        "Form is fully functional on mobile devices",
-        "Form uses the navy (#1e3a8a) and light blue (#60a5fa) brand colors",
-        "Form follows the same design patterns as existing Admin forms",
-        "All interactive elements are touch-friendly on mobile"
+        "Error message displays when deleteQuestion backend call fails",
+        "Error message clearly indicates deletion was unsuccessful",
+        "User can dismiss the error message and retry if needed"
       ]
     }
   ],
   "constraints": [
-    "Do not implement full syllabus logic - only chapter-wise test creation",
-    "Store tests in stable memory in the backend",
-    "Use the existing question data structure and filtering logic",
-    "Maintain the single-actor Motoko backend architecture",
-    "Follow the existing Admin panel tab navigation pattern",
-    "Preserve the navy and light blue color scheme",
-    "Ensure mobile responsiveness for all new UI components"
+    "Do not modify any functionality outside of Question Creation form validation and Delete functionality",
+    "Preserve existing image-only workflow capabilities",
+    "Maintain all existing form fields and their optional/required status except for the three classification fields",
+    "Do not change the UI layout or styling of the Create Question form",
+    "Do not modify any other admin panel tabs or features"
   ],
   "nonGoals": [
-    "Full syllabus-based test creation logic",
-    "Test editing or deletion functionality",
-    "Test preview or taking functionality",
-    "Test analytics or reporting",
-    "Automatic test generation based on syllabus coverage",
-    "Test scheduling or time-based release",
-    "Student-facing test browsing interface"
+    "Redesigning the Question Creation form UI",
+    "Adding new fields to the Question Creation form",
+    "Modifying Question Gallery filters or display",
+    "Changing Create Test functionality",
+    "Updating authentication or authorization logic",
+    "Modifying any other pages or components"
   ],
   "imageRequirements": {
     "required": [],

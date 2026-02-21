@@ -1,197 +1,121 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Implement Chapter-Wise Test Creation System in Admin Panel",
+  "title": "Fix Question Creation Form Validation and Delete Functionality",
   "requirements": [
     {
-      "id": "REQ-69",
-      "summary": "Add 'Create Test' tab to Admin panel navigation",
+      "id": "REQ-81",
+      "summary": "Make classLevel dropdown required with validation for '11th' and '12th' options in Create Question form",
       "acceptanceCriteria": [
-        "New tab appears in Admin panel navigation",
-        "Tab is labeled 'Create Test'",
-        "Tab switches to the Create Test form view when clicked",
-        "Navigation follows the same pattern as existing Admin tabs"
+        "Class Level dropdown has exactly two options: '11th' and '12th'",
+        "Error message displays if user attempts to submit without selecting a class level",
+        "Form submission is blocked until class level is selected"
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a new route for the Create Test page at path '/admin/create-test' in the router configuration, following the existing route pattern used for question gallery and other admin routes"
-        },
         {
           "path": "frontend/src/pages/Admin.tsx",
           "operation": "modify",
-          "description": "Add a new 'Create Test' tab button in the Admin page navigation alongside the existing 'Create Question' and 'Question Gallery' tabs. Wire the tab to navigate to '/admin/create-test' when clicked. Ensure the tab follows the same styling and interaction pattern as existing tabs"
-        },
-        {
-          "path": "frontend/src/pages/CreateTest.tsx",
-          "operation": "create",
-          "description": "Create the Create Test page component that will be rendered when the Create Test tab is clicked. This component will contain the test creation form and question selection interface"
+          "description": "Update the classLevel dropdown to be a required field with hardcoded options '11th' and '12th'. Add validation state tracking for classLevel. Display validation error message below the dropdown when user attempts to submit without selection. Ensure the field is visually marked as required and the form cannot submit until a value is selected."
         }
       ]
     },
     {
-      "id": "REQ-70",
-      "summary": "Create Test Creation form with required fields",
+      "id": "REQ-82",
+      "summary": "Make subject dropdown required with validation for 'Physics', 'Chemistry', and 'Maths' options in Create Question form",
       "acceptanceCriteria": [
-        "All five form fields are present and properly labeled",
-        "Test Name accepts text input",
-        "Class Level dropdown shows only 11th and 12th options",
-        "Subject dropdown shows only Physics, Chemistry, and Maths options",
-        "Duration input accepts only numbers representing minutes",
-        "Marks Per Question dropdown shows only 1 and 2 as options",
-        "Form follows the clean, minimal design with navy and light blue color scheme"
+        "Subject dropdown has exactly three options: 'Physics', 'Chemistry', and 'Maths'",
+        "Error message displays if user attempts to submit without selecting a subject",
+        "Form submission is blocked until subject is selected"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CreateTest.tsx",
+          "path": "frontend/src/pages/Admin.tsx",
           "operation": "modify",
-          "description": "Implement the test creation form with five fields: Test Name (text input), Class Level (dropdown: 11th, 12th), Subject (dropdown: Physics, Chemistry, Maths), Duration (number input for minutes), and Marks Per Question (dropdown: 1, 2). Use controlled component pattern with React state for each field. Apply navy and light blue color scheme consistent with existing admin forms. Ensure proper labels and validation for all fields"
+          "description": "Update the subject dropdown to be a required field with hardcoded options 'Physics', 'Chemistry', and 'Maths'. Add validation state tracking for subject. Display validation error message below the dropdown when user attempts to submit without selection. Ensure the field is visually marked as required and the form cannot submit until a value is selected."
         }
       ]
     },
     {
-      "id": "REQ-71",
-      "summary": "Implement dynamic question fetching and filtering based on Class Level and Subject",
+      "id": "REQ-83",
+      "summary": "Make chapter/topic name text input required with validation in Create Question form",
       "acceptanceCriteria": [
-        "Questions are fetched only after both Class Level and Subject are selected",
-        "Frontend filters the fetched questions by matching classLevel and subject",
-        "Filtered questions update automatically when Class Level or Subject selection changes",
-        "Loading state is displayed while fetching questions"
+        "Chapter/Topic text input field is marked as required",
+        "Error message displays if user attempts to submit with empty chapter field",
+        "Form submission is blocked until chapter field contains text",
+        "Admin must manually type the chapter name (no dropdown)"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useQueries.ts",
+          "path": "frontend/src/pages/Admin.tsx",
           "operation": "modify",
-          "description": "Add a hook for fetching all questions using the getAllQuestions backend capability. Ensure the hook uses React Query with proper caching and returns loading states"
-        },
-        {
-          "path": "frontend/src/pages/CreateTest.tsx",
-          "operation": "modify",
-          "description": "Add useEffect logic that triggers when both Class Level and Subject are selected. Fetch all questions using the useQueries hook, then filter the results on the frontend where question.classLevel matches selected class AND question.subject matches selected subject. Display a loading spinner while fetching. Store filtered questions in component state"
+          "description": "Update the chapter text input to be a required field. Add validation state tracking for chapter. Display validation error message below the input when user attempts to submit with empty value. Ensure the field is visually marked as required with an asterisk or required indicator, and the form cannot submit until text is entered."
         }
       ]
     },
     {
-      "id": "REQ-72",
-      "summary": "Display filtered questions in selectable list with thumbnails",
+      "id": "REQ-84",
+      "summary": "Implement comprehensive form validation preventing submission unless classLevel, subject, and chapter are filled, ensuring all three are sent to backend",
       "acceptanceCriteria": [
-        "Each question row displays Question ID, Chapter, thumbnail, and checkbox",
-        "Thumbnail preview shows the question image with appropriate size constraints",
-        "Checkboxes allow selecting and deselecting individual questions",
-        "Multiple questions can be selected simultaneously",
-        "Empty state message appears when no questions match the filters",
-        "List is scrollable if there are many questions"
+        "Form validation checks all three fields before allowing submission",
+        "Backend createQuestion call always includes classLevel, subject, and chapter fields",
+        "Validation runs on form submit and displays all relevant errors simultaneously",
+        "Submit button remains disabled or shows validation errors until all required fields are filled"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/TestQuestionRow.tsx",
-          "operation": "create",
-          "description": "Create a reusable component for displaying a single question row in the test creation interface. Each row shows Question ID, Chapter name, thumbnail preview using ExternalBlob.getDirectURL() for the question image (constrained to appropriate size), and a checkbox for selection. The component accepts question data, selected state, and onChange handler as props"
-        },
-        {
-          "path": "frontend/src/pages/CreateTest.tsx",
+          "path": "frontend/src/pages/Admin.tsx",
           "operation": "modify",
-          "description": "Render the filtered questions list using the TestQuestionRow component. Maintain selected question IDs in component state as an array. Handle checkbox toggle to add/remove question IDs from the selection. Show an empty state message when no questions match the filters. Make the list scrollable with max height constraint"
+          "description": "Add a validation function that checks all three required fields (classLevel, subject, chapter) before form submission. On submit attempt, validate all fields simultaneously and display all relevant error messages at once. Track validation state for each field in component state. Ensure the createQuestion backend call always includes these three parameters regardless of other field states. Consider disabling the submit button or showing a validation summary until all required fields are valid."
         }
       ]
     },
     {
-      "id": "REQ-73",
-      "summary": "Display live count of selected questions",
+      "id": "REQ-85",
+      "summary": "Preserve existing image-only workflow where questionText and option text fields remain optional",
       "acceptanceCriteria": [
-        "Counter displays the exact number of selected questions",
-        "Counter updates immediately when checkboxes are toggled",
-        "Counter is clearly visible near the question selection area"
+        "Question text field remains optional",
+        "Option A, B, C, D text fields remain optional",
+        "Questions can be created with only images (no text required for question or options)",
+        "Existing image upload and preview functionality is preserved"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CreateTest.tsx",
+          "path": "frontend/src/pages/Admin.tsx",
           "operation": "modify",
-          "description": "Add a text display showing 'Selected Questions: X' where X is the length of the selected question IDs array. Position it clearly visible above or near the question selection list. The counter updates automatically as the selected questions state changes"
+          "description": "Verify that questionText and all option text fields remain optional during the validation changes. Ensure validation logic only applies to classLevel, subject, and chapter fields. Maintain all existing image upload, compression, and preview functionality without changes. Do not add required validation to any image-related or text content fields."
         }
       ]
     },
     {
-      "id": "REQ-76",
-      "summary": "Create useQueries hook for creating tests",
+      "id": "REQ-87",
+      "summary": "Refresh question list, update total count, and show success message after successful question deletion in QuestionGallery",
       "acceptanceCriteria": [
-        "Hook is added to frontend/src/hooks/useQueries.ts",
-        "Hook uses React Query's useMutation",
-        "Hook sends all required fields to backend createTest function",
-        "Hook handles loading, success, and error states"
+        "Question list automatically refreshes after deletion by invalidating the getAllQuestions query",
+        "Total questions count updates to reflect the new total",
+        "Success message appears confirming the question was deleted",
+        "UI updates without requiring manual page refresh"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useQueries.ts",
+          "path": "frontend/src/pages/QuestionGallery.tsx",
           "operation": "modify",
-          "description": "Add a useCreateTest hook using React Query's useMutation. The mutation function calls actor.createTest with parameters: testName, classLevel, subject, duration, marksPerQuestion, and questionIds array. Handle loading, success, and error states. Return the mutation object with isLoading, isSuccess, isError states and the mutate function"
+          "description": "Update the delete question handler to invalidate the getAllQuestions query after successful deletion, triggering an automatic refetch. Add toast notification or alert to display a success message confirming deletion. Ensure the total question count is recalculated from the refreshed data. The UI should update automatically without requiring manual page reload."
         }
       ]
     },
     {
-      "id": "REQ-77",
-      "summary": "Implement form submission logic with validation and success handling",
+      "id": "REQ-88",
+      "summary": "Add error handling to QuestionGallery delete functionality displaying error message when deletion fails",
       "acceptanceCriteria": [
-        "Form validates that all fields are filled before submission",
-        "Form validates that at least one question is selected",
-        "Save Test button triggers form submission",
-        "Success message appears after test is created",
-        "All form fields reset to empty/default state after successful creation",
-        "Selected questions list is cleared after successful creation",
-        "Error messages display if validation fails or backend returns an error"
+        "Error message displays when deleteQuestion backend call fails",
+        "Error message clearly indicates deletion was unsuccessful",
+        "User can dismiss the error message and retry if needed"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CreateTest.tsx",
+          "path": "frontend/src/pages/QuestionGallery.tsx",
           "operation": "modify",
-          "description": "Implement form submission handler that validates all fields are filled and at least one question is selected. Show validation error messages if validation fails. Call the useCreateTest mutation with all form data including the selected questionIds array converted to strings. On success, display a success message (toast or alert), reset all form fields to empty/default state, and clear selected questions array. Handle and display error messages from the backend"
-        },
-        {
-          "path": "frontend/src/pages/CreateTest.tsx",
-          "operation": "modify",
-          "description": "Add a 'Save Test' button at the bottom of the form that triggers the submission handler. Apply navy gradient styling consistent with other buttons in the app. Disable the button while the mutation is loading"
-        }
-      ]
-    },
-    {
-      "id": "REQ-79",
-      "summary": "Add Publish toggle button to change test status",
-      "acceptanceCriteria": [
-        "Publish toggle button is visible in the Create Test interface",
-        "Button calls updateTestStatus backend function when clicked",
-        "Button updates the test status to 'published'",
-        "Success feedback is shown after status change",
-        "Button behavior is intuitive and clearly labeled"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
-          "operation": "modify",
-          "description": "Add a useUpdateTestStatus hook using React Query's useMutation. The mutation function calls actor.updateTestStatus with testId and status parameters. Handle loading, success, and error states"
-        },
-        {
-          "path": "frontend/src/pages/CreateTest.tsx",
-          "operation": "modify",
-          "description": "Add a 'Publish' toggle button near the Save Test button. When clicked, call the useUpdateTestStatus mutation with the newly created test ID and status 'published'. Store the test ID from the createTest response. Show success feedback after status change. The button should only be enabled after a test has been successfully created in the current session"
-        }
-      ]
-    },
-    {
-      "id": "REQ-80",
-      "summary": "Ensure Create Test form UI follows design standards",
-      "acceptanceCriteria": [
-        "Form layout is clean and uncluttered",
-        "Form is fully functional on mobile devices",
-        "Form uses the navy (#1e3a8a) and light blue (#60a5fa) brand colors",
-        "Form follows the same design patterns as existing Admin forms",
-        "All interactive elements are touch-friendly on mobile"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/CreateTest.tsx",
-          "operation": "modify",
-          "description": "Apply responsive layout using Tailwind CSS with mobile-first breakpoints. Use navy (#1e3a8a) and light blue (#60a5fa) colors for buttons, labels, and accents. Ensure form inputs have adequate spacing and touch-friendly tap targets (min 44px height). Follow the same component structure and styling patterns used in frontend/src/pages/Admin.tsx. Add proper spacing, borders, and visual hierarchy. Test on mobile viewport sizes"
+          "description": "Add error handling in the delete question handler to catch failures from the deleteQuestion backend call. Display a toast notification or alert with a clear error message when deletion fails. Ensure the error message is user-friendly and dismissible, allowing the user to retry the operation if needed."
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 27,
+  "projectStateVersion": 29,
   "summary": "Concept Delta - An MHT-CET practice test platform with a navy/light blue color scheme, featuring routes for home, dashboard, admin, about, test, and result pages. Initial focus on layout structure, navbar with logo, footer, and hero section.",
   "architectural_notes": [
     "Navy (#1e3a8a) and light blue (#60a5fa) color scheme with white backgrounds",
@@ -15,7 +15,7 @@
     "Question creation supports optional images for both questions and options (text OR image required)"
   ],
   "known_issues": [],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-routing-structure-with-six-pages-home-dashboard-dashboard-admin-admin-about-about-test-with-dynamic-id-parameter-test-id-and-result-with-dynamic-id-parameter-result-id-all-pages-should-be-empty-placeholders-initially",
@@ -576,6 +576,62 @@
         "REQ-80"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-admin-tsx-create-question-form-to-make-classlevel-dropdown-field-required-with-options-11th-and-12th-displaying-a-validation-error-message-if-not-selected-before-form-submission",
+      "title": "Update Admin.tsx Create Question form to make classLevel dropdown field required with options '11th' and '12th', displaying a validation error message if not selected before form submission",
+      "reqIds": [
+        "REQ-81"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-admin-tsx-create-question-form-to-make-subject-dropdown-field-required-with-options-physics-chemistry-and-maths-displaying-a-validation-error-message-if-not-selected-before-form-submission",
+      "title": "Update Admin.tsx Create Question form to make subject dropdown field required with options 'Physics', 'Chemistry', and 'Maths', displaying a validation error message if not selected before form submission",
+      "reqIds": [
+        "REQ-82"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-admin-tsx-create-question-form-to-make-chapter-topic-name-text-input-field-required-displaying-a-validation-error-message-if-empty-before-form-submission",
+      "title": "Update Admin.tsx Create Question form to make chapter/topic name text input field required, displaying a validation error message if empty before form submission",
+      "reqIds": [
+        "REQ-83"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-comprehensive-form-validation-in-admin-tsx-that-prevents-form-submission-unless-all-three-fields-classlevel-subject-chapter-are-filled-and-ensure-these-three-fields-are-always-sent-to-the-backend-createquestion-function",
+      "title": "Implement comprehensive form validation in Admin.tsx that prevents form submission unless all three fields (classLevel, subject, chapter) are filled, and ensure these three fields are always sent to the backend createQuestion function",
+      "reqIds": [
+        "REQ-84"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-preserve-the-existing-image-only-workflow-in-admin-tsx-create-question-form-where-questiontext-and-option-text-fields-remain-optional-and-images-can-be-used-without-text",
+      "title": "Preserve the existing image-only workflow in Admin.tsx Create Question form where questionText and option text fields remain optional and images can be used without text",
+      "reqIds": [
+        "REQ-85"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-questiongallery-tsx-to-refresh-the-question-list-update-the-total-question-count-and-display-a-success-message-after-successful-question-deletion",
+      "title": "Update QuestionGallery.tsx to refresh the question list, update the total question count, and display a success message after successful question deletion",
+      "reqIds": [
+        "REQ-87"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-error-handling-to-questiongallery-tsx-delete-functionality-that-displays-an-error-message-when-deletion-fails",
+      "title": "Add error handling to QuestionGallery.tsx delete functionality that displays an error message when deletion fails",
+      "reqIds": [
+        "REQ-88"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -878,6 +934,14 @@
       "summary": "Implement a backend updateTestStatus() function in main.mo that accepts a test ID and new status value ('draft' or 'published'), locates the test in stable memory, and updates its status field",
       "reqIds": [
         "REQ-78"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-76",
+      "summary": "Fix the backend deleteQuestion function in main.mo to correctly remove questions from stable memory by ensuring ID type matching and conversion, properly deleting the question from the storage data structure",
+      "reqIds": [
+        "REQ-86"
       ],
       "status": "pending"
     }

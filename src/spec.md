@@ -1,20 +1,17 @@
 # Specification
 
 ## Summary
-**Goal:** Implement a chapter-wise test creation system in the Admin panel that allows creating, managing, and publishing tests with selected questions filtered by class and subject.
+**Goal:** Fix Question Creation form validation to require classLevel, subject, and chapter fields, and fix question deletion functionality to properly remove questions from stable memory.
 
 **Planned changes:**
-- Add a new "Create Test" tab to the Admin panel navigation
-- Create a test creation form with fields for test name, class level, subject, duration, and marks per question
-- Implement dynamic question fetching and filtering based on selected class and subject
-- Display filtered questions in a selectable list with thumbnails, showing question ID, chapter, and checkboxes
-- Show a live count of selected questions
-- Add backend Test type with fields: id, testName, classLevel, subject, duration, marksPerQuestion, questionIds, status, and createdAt
-- Implement createTest() backend function to store tests in stable memory with auto-generated IDs and draft status
-- Create useQueries hook for test creation
-- Implement form validation and submission that saves tests and clears the form
-- Add updateTestStatus() backend function to change test status between draft and published
-- Add a Publish toggle button to change test status
-- Ensure mobile-responsive UI following the navy and light blue color scheme
+- Make classLevel dropdown required with options '11th' and '12th', show validation error if not selected
+- Make subject dropdown required with options 'Physics', 'Chemistry', and 'Maths', show validation error if not selected
+- Make chapter/topic name text input required, show validation error if empty
+- Prevent form submission unless all three fields (classLevel, subject, chapter) are filled
+- Ensure classLevel, subject, and chapter are always sent to backend createQuestion function
+- Preserve existing image-only workflow (questionText and option text fields remain optional)
+- Fix backend deleteQuestion function to correctly remove questions from stable memory with proper ID type matching
+- Refresh question list, update total count, and show success message after successful deletion in QuestionGallery
+- Display error message in QuestionGallery when deletion fails
 
-**User-visible outcome:** Admins can create chapter-wise tests by selecting class and subject, choosing questions from a filtered list, setting test parameters, saving tests as drafts, and publishing them when ready.
+**User-visible outcome:** Admins must select class level, subject, and enter chapter name before creating questions, ensuring all questions are properly classified. Question deletion now works correctly, with the list automatically refreshing and showing success/error messages.

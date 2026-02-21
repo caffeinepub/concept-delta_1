@@ -106,11 +106,12 @@ actor {
       Runtime.trap("Unauthorized: Only admins can delete questions");
     };
 
-    if (questions.containsKey(id)) {
-      questions.remove(id);
-      true;
-    } else {
-      false;
+    switch (questions.get(id)) {
+      case (null) { false };
+      case (?_question) {
+        questions.remove(id);
+        true;
+      };
     };
   };
 

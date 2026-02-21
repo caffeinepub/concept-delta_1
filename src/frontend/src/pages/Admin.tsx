@@ -30,7 +30,12 @@ export default function Admin() {
   const [marks, setMarks] = useState(1);
 
   // UI state
-  const [validationError, setValidationError] = useState('');
+  const [validationErrors, setValidationErrors] = useState<{
+    classLevel?: string;
+    subject?: string;
+    chapter?: string;
+    general?: string;
+  }>({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -59,7 +64,7 @@ export default function Admin() {
 
     // Validate file type
     if (!file.type.match(/^image\/(jpeg|jpg|png)$/)) {
-      setValidationError('Please upload only JPG or PNG images');
+      setValidationErrors({ general: 'Please upload only JPG or PNG images' });
       return;
     }
 
@@ -76,45 +81,45 @@ export default function Admin() {
   };
 
   const validateForm = (): boolean => {
-    setValidationError('');
+    const errors: {
+      classLevel?: string;
+      subject?: string;
+      chapter?: string;
+      general?: string;
+    } = {};
 
     // Validate classLevel
     if (!classLevel.trim()) {
-      setValidationError('Class Level is required');
-      return false;
+      errors.classLevel = 'Class Level is required';
     }
 
     // Validate subject
     if (!subject.trim()) {
-      setValidationError('Subject is required');
-      return false;
+      errors.subject = 'Subject is required';
     }
 
     // Validate chapter
     if (!chapter.trim()) {
-      setValidationError('Chapter is required');
-      return false;
+      errors.chapter = 'Chapter / Topic Name is required';
     }
 
     // Require question image
     if (!questionImage) {
-      setValidationError('Question image is required');
-      return false;
+      errors.general = 'Question image is required';
     }
 
     // Validate correct answer is selected
     if (!correctAnswer) {
-      setValidationError('Please select the correct answer');
-      return false;
+      errors.general = errors.general || 'Please select the correct answer';
     }
 
     // Validate marks
     if (marks < 1) {
-      setValidationError('Marks must be at least 1');
-      return false;
+      errors.general = errors.general || 'Marks must be at least 1';
     }
 
-    return true;
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const resetForm = () => {
@@ -124,7 +129,7 @@ export default function Admin() {
     removeImage();
     setCorrectAnswer('');
     setMarks(1);
-    setValidationError('');
+    setValidationErrors({});
     setUploadProgress(0);
   };
 
@@ -159,7 +164,7 @@ export default function Admin() {
       resetForm();
     } catch (error) {
       console.error('Failed to create question:', error);
-      setValidationError('Failed to create question. Please try again.');
+      setValidationErrors({ general: 'Failed to create question. Please try again.' });
     }
   };
 
@@ -247,9 +252,9 @@ export default function Admin() {
         </Alert>
       )}
 
-      {validationError && (
+      {validationErrors.general && (
         <Alert variant="destructive" className="mb-6">
-          <AlertDescription>{validationError}</AlertDescription>
+          <AlertDescription>{validationErrors.general}</AlertDescription>
         </Alert>
       )}
 
@@ -264,45 +269,54 @@ export default function Admin() {
               <Label htmlFor="classLevel" className="text-sm font-medium">
                 Class Level *
               </Label>
-              <Input
-                id="classLevel"
-                value={classLevel}
-                onChange={(e) => setClassLevel(e.target.value)}
-                placeholder="e.g., 11th, 12th"
-                className="w-full"
-                disabled={createQuestion.isPending}
-                required
-              />
+              <Select value={classLevel} onValueChange={setClassLevel}>
+                <SelectTrigger className={`w-full ${validationErrors.classLevel ? 'border-destructive' : ''}`}>
+                  <SelectValue placeholder="Select class" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="11th">11th</SelectItem>
+                  <SelectItem value="12th">12th</SelectItem>
+                </SelectContent>
+              </Select>
+              {validationErrors.classLevel && (
+                <p className="text-sm text-destructive">{validationErrors.classLevel}</p>
+              )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="subject" className="text-sm font-medium">
                 Subject *
               </Label>
-              <Input
-                id="subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                placeholder="e.g., Physics, Chemistry"
-                className="w-full"
-                disabled={createQuestion.isPending}
-                required
-              />
+              <Select value={subject} onValueChange={setSubject}>
+                <SelectTrigger className={`w-full ${validationErrors.subject ? 'border-destructive' : ''}`}>
+                  <SelectValue placeholder="Select subject" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Physics">Physics</SelectItem>
+                  <SelectItem value="Chemistry">Chemistry</SelectItem>
+                  <SelectItem value="Maths">Maths</SelectItem>
+                </SelectContent>
+              </Select>
+              {validationErrors.subject && (
+                <p className="text-sm text-destructive">{validationErrors.subject}</p>
+              )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="chapter" className="text-sm font-medium">
-                Chapter *
+                Chapter / Topic Name *
               </Label>
               <Input
                 id="chapter"
                 value={chapter}
                 onChange={(e) => setChapter(e.target.value)}
                 placeholder="e.g., Mechanics, Optics"
-                className="w-full"
+                className={`w-full ${validationErrors.chapter ? 'border-destructive' : ''}`}
                 disabled={createQuestion.isPending}
-                required
               />
+              {validationErrors.chapter && (
+                <p className="text-sm text-destructive">{validationErrors.chapter}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -319,7 +333,6 @@ export default function Admin() {
                 placeholder="e.g., 1, 2, 3"
                 className="w-full"
                 disabled={createQuestion.isPending}
-                required
               />
             </div>
           </div>

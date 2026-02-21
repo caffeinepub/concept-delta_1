@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, ArrowLeft, CheckCircle2, Filter } from 'lucide-react';
+import { Loader2, ArrowLeft, CheckCircle2, Filter, AlertCircle } from 'lucide-react';
 import type { Question } from '../backend';
 
 export default function QuestionGallery() {
@@ -26,6 +26,7 @@ export default function QuestionGallery() {
   // Delete modal state
   const [questionToDelete, setQuestionToDelete] = useState<Question | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   // Filter questions based on all three filters - MUST be before any early returns
   const filteredQuestions = useMemo(() => {
@@ -72,23 +73,34 @@ export default function QuestionGallery() {
 
   const handleDeleteClick = (question: Question) => {
     setQuestionToDelete(question);
+    setDeleteError(null);
   };
 
   const handleDeleteConfirm = async () => {
     if (!questionToDelete) return;
 
     try {
-      await deleteQuestion.mutateAsync(questionToDelete.id);
-      setQuestionToDelete(null);
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
+      const result = await deleteQuestion.mutateAsync(questionToDelete.id);
+      
+      if (result) {
+        // Deletion successful
+        setQuestionToDelete(null);
+        setShowSuccess(true);
+        setDeleteError(null);
+        setTimeout(() => setShowSuccess(false), 3000);
+      } else {
+        // Backend returned false (question not found)
+        setDeleteError('Question not found or already deleted');
+      }
     } catch (error) {
       console.error('Failed to delete question:', error);
+      setDeleteError('Failed to delete question. Please try again.');
     }
   };
 
   const handleDeleteCancel = () => {
     setQuestionToDelete(null);
+    setDeleteError(null);
   };
 
   if (isLoading) {
@@ -145,10 +157,18 @@ export default function QuestionGallery() {
         </Alert>
       )}
 
+      {/* Error Message */}
+      {deleteError && (
+        <Alert variant="destructive" className="mb-6">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{deleteError}</AlertDescription>
+        </Alert>
+      )}
+
       {/* Filters */}
       <div className="mb-6 rounded-lg border-2 border-brand-navy/20 bg-white p-4 shadow-sm md:p-6">
         <div className="mb-4 flex items-center gap-2">
-          <Filter className="h-5 w-5 text-brand-blue" />
+          <Filter className="h-5 w-5 text-brand-navy" />
           <h2 className="text-lg font-semibold text-brand-navy">Filters</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -158,10 +178,10 @@ export default function QuestionGallery() {
             </Label>
             <Select value={classFilter} onValueChange={setClassFilter}>
               <SelectTrigger id="classFilter" className="w-full">
-                <SelectValue />
+                <SelectValue placeholder="All Classes" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="All">All Classes</SelectItem>
                 <SelectItem value="11th">11th</SelectItem>
                 <SelectItem value="12th">12th</SelectItem>
               </SelectContent>
@@ -174,10 +194,10 @@ export default function QuestionGallery() {
             </Label>
             <Select value={subjectFilter} onValueChange={setSubjectFilter}>
               <SelectTrigger id="subjectFilter" className="w-full">
-                <SelectValue />
+                <SelectValue placeholder="All Subjects" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="All">All</SelectItem>
+                <SelectItem value="All">All Subjects</SelectItem>
                 <SelectItem value="Physics">Physics</SelectItem>
                 <SelectItem value="Chemistry">Chemistry</SelectItem>
                 <SelectItem value="Maths">Maths</SelectItem>
@@ -187,40 +207,58 @@ export default function QuestionGallery() {
 
           <div className="space-y-2">
             <Label htmlFor="chapterSearch" className="text-sm font-medium">
-              Chapter
+              Search Chapter
             </Label>
             <Input
               id="chapterSearch"
               value={chapterSearch}
               onChange={(e) => setChapterSearch(e.target.value)}
-              placeholder="Search by chapter name..."
+              placeholder="Type to search..."
               className="w-full"
             />
           </div>
         </div>
+
+        {hasActiveFilters && (
+          <div className="mt-4 flex items-center justify-between rounded-md bg-brand-blue/10 px-4 py-2">
+            <p className="text-sm text-brand-navy">
+              Showing {filteredQuestions.length} of {questions?.length || 0} questions
+            </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setClassFilter('All');
+                setSubjectFilter('All');
+                setChapterSearch('');
+              }}
+              className="text-brand-navy hover:bg-brand-blue/20"
+            >
+              Clear Filters
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Questions Grid */}
       {filteredQuestions.length === 0 ? (
-        <div className="flex min-h-[40vh] items-center justify-center rounded-lg border-2 border-dashed border-brand-navy/20 bg-gradient-to-br from-brand-blue/5 to-brand-navy/5 p-8">
-          <div className="text-center">
-            <p className="text-xl font-medium text-muted-foreground">
-              {hasActiveFilters ? 'No questions match your filters.' : 'No questions added yet.'}
-            </p>
-            {hasActiveFilters && (
-              <Button
-                onClick={() => {
-                  setClassFilter('All');
-                  setSubjectFilter('All');
-                  setChapterSearch('');
-                }}
-                variant="outline"
-                className="mt-4 border-brand-blue text-brand-navy hover:bg-brand-blue/10"
-              >
-                Clear Filters
-              </Button>
-            )}
-          </div>
+        <div className="rounded-lg border-2 border-dashed border-brand-navy/20 bg-white p-12 text-center">
+          <p className="text-lg text-muted-foreground">
+            {hasActiveFilters ? 'No questions match your filters' : 'No questions available'}
+          </p>
+          {hasActiveFilters && (
+            <Button
+              variant="outline"
+              onClick={() => {
+                setClassFilter('All');
+                setSubjectFilter('All');
+                setChapterSearch('');
+              }}
+              className="mt-4"
+            >
+              Clear Filters
+            </Button>
+          )}
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -237,9 +275,9 @@ export default function QuestionGallery() {
       {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
         isOpen={!!questionToDelete}
-        questionId={questionToDelete?.id.toString() || ''}
-        onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        questionId={questionToDelete?.id.toString() || ''}
         isDeleting={deleteQuestion.isPending}
       />
     </div>
